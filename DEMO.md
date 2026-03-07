@@ -7,15 +7,16 @@ This document is designed to showcase the **CarePulse Hub** in action. Below are
 ## 📸 Interface Preview
 
 ### 1. The Main Dashboard
-> **[INSERT SCREENSHOT: Dashboard with Glassmorphism design and empty fields]**
+> 
+![Configuration Screen](doc/img/2.png)
 > *Clean, minimal, and focused on the task. No distractions, just care.*
 
 ### 2. Scenario-Based Suggestions
-> **[INSERT SCREENSHOT: Scenario dropdown expanded showing "Semana de Provas"]**
+> ![Configuration Screen](doc/img/3.png)
 > *Professional templates to help you communicate clearly and neutrally, even in stressful situations.*
 
 ### 3. Smart Configuration
-> **[INSERT SCREENSHOT: Settings modal with encrypted keys]**
+> ![Configuration Screen](doc/img/1.png)
 > *Privacy first. Your credentials never leave your machine; they are encrypted locally.*
 
 ---
