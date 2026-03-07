@@ -41,3 +41,7 @@ application-local.properties
 
 # === Autostart temp files ===
 CarePulseHub.vbs
+
+# === Agent Workspace ===
+.agent/
+.gemini/
