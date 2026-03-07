@@ -1,0 +1,43 @@
+# === Build Output ===
+backend/target/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+
+# === H2 Database (local data stays local) ===
+backend/data/
+*.db
+*.mv.db
+*.trace.db
+
+# === Logs ===
+*.log
+backend_log.txt
+logs/
+
+# === IDE ===
+.idea/
+*.iml
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# === OS ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Maven Wrapper ===
+!backend/.mvn/wrapper/maven-wrapper.jar
+
+# === Secrets & Keys (NEVER commit these) ===
+*.key
+*.pem
+application-local.properties
+
+# === Autostart temp files ===
+CarePulseHub.vbs

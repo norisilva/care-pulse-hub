@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarePulse Hub | Cuidado & Organização</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>CarePulse Hub</h1>
+        <p class="subtitle">Engenharia e IA ajudando pessoas a manterem relações em ordem e minimizando conflitos.</p>
+
+        <form id="reportForm">
+            <div class="form-group">
+                <label for="reportGroup">Grupo de Notificação</label>
+                <select id="reportGroup" required>
+                    <option value="">Selecione um grupo...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="assistedName">Sujeito(s) da Notificação (Opcional)</label>
+                <input type="text" id="assistedName" placeholder="Ex: Joãozinho ou Placa AAA-1234">
+            </div>
+
+            <div class="form-group">
+                <label for="reportScenario">Cenário / Sugestão de Modelo</label>
+                <select id="reportScenario">
+                    <option value="">Nenhum (Texto em branco)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label id="labelField1" for="field1">Saúde</label>
+                <textarea id="field1" placeholder="..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label id="labelField2" for="field2">Campo 2</label>
+                <textarea id="field2" placeholder="..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label id="labelField3" for="field3">Campo 3</label>
+                <textarea id="field3" placeholder="..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label id="labelField4" for="field4">Campo 4</label>
+                <textarea id="field4" placeholder="..."></textarea>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn-secondary" id="neutralizeBtn">Neutralizar (AI)</button>
+                <button type="submit" class="btn-primary">Enviar Report</button>
+            </div>
+        </form>
+
+        <div class="status-indicator" style="display: flex; justify-content: space-between; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <div class="dot"></div>
+                <span id="statusText">Verificando conexão...</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+                <button type="button" id="manageGroupsBtn" class="btn-icon" title="Gerenciar Grupos de Notificação">👥
+                    Grupos</button>
+                <button type="button" id="settingsBtn" class="btn-icon" title="Configurações de Segurança e Perfil">⚙️
+                    Config</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Configurações do Sistema</h2>
+            <form id="configForm">
+                <div class="form-group">
+                    <label for="userRole">Seu Perfil (Muda os campos do relatório)</label>
+                    <select id="userRole" required
+                        style="width: 100%; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); border-radius: 8px; padding: 0.5rem; color: var(--text-main); margin-bottom: 1rem;">
+                        <option value="1">1. Pai/Mãe (Guarda)</option>
+                        <option value="2">2. Cuidador Comum / Babá</option>
+                        <option value="3">3. Técnico de Enfermagem</option>
+                        <option value="4">4. Professor Particular</option>
+                        <option value="5">5. Pet Sitter / Passeador</option>
+                        <option value="6">6. Personal Trainer</option>
+                        <option value="7">7. Mecânico / Manutenção</option>
+                        <option value="8">8. Personal Organizer</option>
+                        <option value="9">9. Empreiteiro / Pedreiro</option>
+                        <option value="10">10. Customizado (Genérico)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="masterKey">Chave Mestra (Jasypt)</label>
+                    <input type="password" id="masterKey" required placeholder="A chave mestra gerada no código">
+                </div>
+                <div class="form-group">
+                    <label for="emailUser">E-mail Remetente (Gmail)</label>
+                    <input type="email" id="emailUser" required placeholder="seuemail@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="emailPass">Senha de App (Gmail)</label>
+                    <input type="password" id="emailPass" required placeholder="abcd efgh ijkl mnop">
+                </div>
+                <div class="form-group">
+                    <label for="recipientEmail">Destinatário Padrão (E-mail)</label>
+                    <input type="email" id="recipientEmail" required placeholder="destino@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="openaiKey">OpenAI API Key (Opcional p/ MVP)</label>
+                    <input type="password" id="openaiKey" placeholder="sk-...">
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn-primary" style="flex: 2;">Salvar Configurações</button>
+                    <button type="button" id="encryptTestBtn" class="btn-secondary" style="flex: 1; font-size: 0.8rem;"
+                        title="Testar gerador de Hash avulso">Testar Hash</button>
+                </div>
+
+                <hr style="border-color: rgba(239, 68, 68, 0.3); margin: 1.5rem 0;">
+                <p
+                    style="font-size: 0.75rem; color: #ef4444; margin-bottom: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+                    &#9888; Zona de Perigo</p>
+                <button type="button" id="resetDbBtn" class="btn-danger">
+                    &#128465; Resetar Banco de Dados
+                </button>
+                <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    Apaga todos os relatórios, grupos e configurações. Essa ação é irreversível e não tem volta.
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Group Management Modal -->
+    <div id="groupsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeGroupsBtn">&times;</span>
+            <h2>Grupos de Notificação</h2>
+            <div id="groupsList" style="margin-bottom: 2rem; max-height: 200px; overflow-y: auto;">
+                <!-- Group list injected here -->
+            </div>
+
+            <h3>Criar Novo Grupo</h3>
+            <form id="createGroupForm">
+                <div class="form-group">
+                    <label for="newGroupName">Nome do Grupo</label>
+                    <input type="text" id="newGroupName" required placeholder="Ex: Turma A, Cliente XYZ...">
+                </div>
+                <div class="form-group">
+                    <label for="newGroupEmail">E-mail(s) do(s) Destinatário(s)</label>
+                    <input type="email" id="newGroupEmail" required placeholder="destino@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="newGroupPeriod">Periodicidade</label>
+                    <select id="newGroupPeriod" required
+                        style="width: 100%; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); border-radius: 8px; padding: 0.5rem; color: var(--text-main); margin-bottom: 1rem;">
+                        <option value="ON-DEMAND">Único / Sob Demanda</option>
+                        <option value="DAILY">Diário</option>
+                        <option value="WEEKLY">Semanal</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Adicionar Grupo</button>
+            </form>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
