@@ -280,6 +280,46 @@ let pendingReportData = null;
 let sendTimerInterval = null;
 let timeRemaining = 180; // 3 minutes
 
+const reflectionMessages = [
+    "Respire fundo. A comunicação clara reduz conflitos duradouros.",
+    "Lembre-se: O que está escrito fica documentado para sempre.",
+    "Vale a pena gerar atrito por conta de uma palavra?",
+    "Você revisou as sugestões da IA? Elas ajudam a manter a objetividade.",
+    "Um relatório neutro foca nos fatos, não em atacar as pessoas.",
+    "Pense no longo prazo: a paz custa menos que o conflito."
+];
+let reflectionInterval = null;
+
+function startReflection() {
+    const container = document.getElementById('reflectionContainer');
+    const msgSpan = document.getElementById('reflectionMessage');
+    if (!container || !msgSpan) return;
+
+    container.style.display = 'block';
+
+    let msgIndex = 0;
+    const showNextMessage = () => {
+        msgSpan.style.opacity = '0'; // fade out
+        setTimeout(() => {
+            msgSpan.innerText = `💡 "${reflectionMessages[msgIndex]}"`;
+            msgSpan.style.opacity = '1'; // fade in
+            msgIndex = (msgIndex + 1) % reflectionMessages.length;
+        }, 500);
+    };
+
+    showNextMessage();
+    reflectionInterval = setInterval(showNextMessage, 6000); // 6 seconds rotation
+}
+
+function stopReflection() {
+    const container = document.getElementById('reflectionContainer');
+    if (container) container.style.display = 'none';
+    if (reflectionInterval) {
+        clearInterval(reflectionInterval);
+        reflectionInterval = null;
+    }
+}
+
 function startSendTimer() {
     const sendReportBtn = document.querySelector('#reportForm button[type="submit"]');
     timeRemaining = 180;
@@ -287,11 +327,14 @@ function startSendTimer() {
     sendReportBtn.style.color = '#ef4444'; // Indicator color for cancel
     sendReportBtn.innerText = `Cancelar Envio (${formatTime(timeRemaining)})`;
 
+    startReflection();
+
     sendTimerInterval = setInterval(() => {
         timeRemaining--;
         if (timeRemaining <= 0) {
             clearInterval(sendTimerInterval);
             sendTimerInterval = null;
+            stopReflection();
             executeSendReport();
         } else {
             sendReportBtn.innerText = `Cancelar Envio (${formatTime(timeRemaining)})`;
@@ -310,6 +353,7 @@ function cancelSendTimer() {
         clearInterval(sendTimerInterval);
         sendTimerInterval = null;
         pendingReportData = null;
+        stopReflection();
         resetSendButton();
         alert('Envio cancelado. Você pode continuar editando o relatório.');
     }
