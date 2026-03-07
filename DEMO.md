@@ -1,50 +1,69 @@
 # 🚀 CarePulse Hub - Showcasing Human-Centered Engineering
 
-This document is designed to showcase the **CarePulse Hub** in action. Below are key features and the "why" behind the project.
+[Português](#português) | [English](#english)
 
 ---
 
-## 📸 Interface Preview
+<a name="english"></a>
+## 🇺🇸 English Showcase
 
 ### 1. The Main Dashboard
-> 
-![Configuration Screen](doc/img/2.png)
+> ![Dashboard](doc/img/2.png)
 > *Clean, minimal, and focused on the task. No distractions, just care.*
 
 ### 2. Scenario-Based Suggestions
-> ![Configuration Screen](doc/img/3.png)
+> ![Scenario Suggestions](doc/img/3.png)
 > *Professional templates to help you communicate clearly and neutrally, even in stressful situations.*
 
-### 3. Smart Configuration
+### 3. AI Neutralization Layer (New!)
+> ![AI Violation](doc/img/ai_violation.png)
+> *1. Real-time feedback identifying emotional or biased language.*
+>
+> ![Violation Modal](doc/img/violation_modal.png)
+> *2. Confirmation modal blocking the submission until the user acknowledges the AI feedback.*
+>
+> ![Countdown Timer](doc/img/countdown_timer.png)
+> *3. Impulse Control: A 3-minute cancelable delay to ensure the report is sent with a "cool-off" mindset.*
+
+### 4. Smart Configuration
 > ![Configuration Screen](doc/img/1.png)
 > *Privacy first. Your credentials never leave your machine; they are encrypted locally.*
 
 ---
 
-## 💡 The Vision: Why this exists?
+<a name="português"></a>
+## 🇧🇷 Demonstração (Português)
 
-In many roles—co-parenting, elderly care, healthcare—**how** we say things is as important as **what** we say. 
+### 1. Painel Principal
+> ![Painel Principal](doc/img/2.png)
+> *Interface limpa, minimalista e focada na tarefa. Sem distrações, apenas cuidado.*
+
+### 2. Sugestões Baseadas em Cenários
+> ![Sugestão de Cenários](doc/img/3.png)
+> *Modelos profissionais para ajudar você a se comunicar de forma clara e neutra, mesmo em situações estressantes.*
+
+### 3. Camada de Neutralização IA (Novo!)
+> ![Violação detectada](doc/img/ai_violation.png)
+> *1. Feedback em tempo real identificando termos emocionais ou enviesados.*
+>
+> ![Modal de Violação](doc/img/violation_modal.png)
+> *2. Modal de confirmação que interrompe o envio até que o usuário revise o feedback da IA.*
+>
+> ![Temporizador de Contagem](doc/img/countdown_timer.png)
+> *3. Controle de Impulso: Um atraso cancelável de 3 minutos para garantir que o relatório seja enviado após "esfriar a cabeça".*
+
+### 4. Configuração Inteligente
+> ![Tela de Configuração](doc/img/1.png)
+> *Privacidade em primeiro lugar. Suas credenciais nunca saem da sua máquina; são criptografadas localmente.*
+
+---
+
+## � The Vision / A Visão
 
 Communication loaded with emotion or ambiguity creates friction and distrust. **CarePulse Hub** acts as a neutral layer, ensuring that reports are objective, organized, and factual.
 
----
-
-## 🤝 For Developers: Helping a Human Cause
-
-We are looking for contributors who believe software should solve human relationship problems.
-
-### Next Steps for the Project:
-1. **Local AI Neutralization**: Using heuristics or Ollama to rewrite texts for a neutral tone without requiring cloud API keys.
-2. **Offline Scheduler**: Ensuring reports are sent at the right time, every time, even when the user is busy.
-3. **PWA Support**: Bringing the Hub to mobile devices as a seamless local app.
+Comunicações carregadas de emoção ou ambiguidade geram atrito e desconfiança. O **CarePulse Hub** atua como uma camada neutra, garantindo que os relatórios sejam objetivos, organizados e factuais.
 
 ---
 
-## 🛠️ How to Contribute
-1. Check the [CONTRIBUTING.md](CONTRIBUTING.md) guide.
-2. Look for "Good First Issues" in the repository.
-3. Help us make communication more humane through technology.
-
----
-*Built with care, for people who care.*  
 [Back to README](README.md)
