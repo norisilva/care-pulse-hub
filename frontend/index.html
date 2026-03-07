@@ -39,21 +39,25 @@
             <div class="form-group">
                 <label id="labelField1" for="field1">Saúde</label>
                 <textarea id="field1" placeholder="..."></textarea>
+                <div id="suggest-field1" class="ai-suggestions"></div>
             </div>
 
             <div class="form-group">
                 <label id="labelField2" for="field2">Campo 2</label>
                 <textarea id="field2" placeholder="..."></textarea>
+                <div id="suggest-field2" class="ai-suggestions"></div>
             </div>
 
             <div class="form-group">
                 <label id="labelField3" for="field3">Campo 3</label>
                 <textarea id="field3" placeholder="..."></textarea>
+                <div id="suggest-field3" class="ai-suggestions"></div>
             </div>
 
             <div class="form-group">
                 <label id="labelField4" for="field4">Campo 4</label>
                 <textarea id="field4" placeholder="..."></textarea>
+                <div id="suggest-field4" class="ai-suggestions"></div>
             </div>
 
             <div class="btn-group">
@@ -170,6 +174,24 @@
             </form>
         </div>
     </div>
+
+    <!-- Violation Modal -->
+    <div id="violationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeViolationModal">&times;</span>
+            <h2 style="color: #f59e0b;">⚠️ Termos Não Neutros Detectados</h2>
+            <p style="margin-top: 1rem;">O seu relatório contém termos que podem ser considerados enviesados ou com
+                carga emocional. Recomendamos fortemente revisar as sugestões da IA antes do envio.</p>
+            <p style="margin-top: 1rem;">Deseja enviar assim mesmo? (Haverá um período de cancelamento de 3 minutos após
+                confirmar).</p>
+            <div class="btn-group" style="margin-top: 2rem;">
+                <button type="button" class="btn-secondary" id="cancelSendBtn">Revisar Texto</button>
+                <button type="button" class="btn-primary" id="confirmSendBtn"
+                    style="background: #f59e0b; color: white;">Sim, Enviar Mesmo Assim</button>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 

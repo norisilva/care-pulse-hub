@@ -276,8 +276,88 @@ async function loadLastReport() {
     }
 }
 
+let pendingReportData = null;
+let sendTimerInterval = null;
+let timeRemaining = 180; // 3 minutes
+
+function startSendTimer() {
+    const sendReportBtn = document.querySelector('#reportForm button[type="submit"]');
+    timeRemaining = 180;
+    sendReportBtn.classList.replace('btn-primary', 'btn-secondary');
+    sendReportBtn.style.color = '#ef4444'; // Indicator color for cancel
+    sendReportBtn.innerText = `Cancelar Envio (${formatTime(timeRemaining)})`;
+
+    sendTimerInterval = setInterval(() => {
+        timeRemaining--;
+        if (timeRemaining <= 0) {
+            clearInterval(sendTimerInterval);
+            sendTimerInterval = null;
+            executeSendReport();
+        } else {
+            sendReportBtn.innerText = `Cancelar Envio (${formatTime(timeRemaining)})`;
+        }
+    }, 1000);
+}
+
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+function cancelSendTimer() {
+    if (sendTimerInterval) {
+        clearInterval(sendTimerInterval);
+        sendTimerInterval = null;
+        pendingReportData = null;
+        resetSendButton();
+        alert('Envio cancelado. Você pode continuar editando o relatório.');
+    }
+}
+
+function resetSendButton() {
+    const sendReportBtn = document.querySelector('#reportForm button[type="submit"]');
+    sendReportBtn.classList.replace('btn-secondary', 'btn-primary');
+    sendReportBtn.style.color = '';
+    sendReportBtn.innerText = 'Enviar Report';
+}
+
+async function executeSendReport() {
+    resetSendButton();
+    if (!pendingReportData) return;
+
+    try {
+        const response = await fetch(`${API_BASE}/reports`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(pendingReportData)
+        });
+        if (response.ok) {
+            alert('Relatório enviado com sucesso!');
+        } else {
+            const error = await response.json();
+            if (error.message && error.message.includes('REJEITADO_PELA_IA')) {
+                alert('BLOQUEADO: ' + error.message);
+                // Trigger the UI modal just in case it was bypassed
+                const violationModal = document.getElementById('violationModal');
+                if (violationModal) violationModal.style.display = 'flex';
+            } else {
+                alert(`Erro: ${error.message || 'Falha ao enviar'}`);
+            }
+        }
+    } catch (error) {
+        alert('Erro de conexão com o servidor.');
+    } finally {
+        pendingReportData = null;
+    }
+}
+
 reportForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    if (sendTimerInterval) {
+        // If timer is running, clicking the button cancels the send
+        cancelSendTimer();
+        return;
+    }
 
     // Check if group is selected
     const groupId = document.getElementById('reportGroup').value;
@@ -286,26 +366,34 @@ reportForm.addEventListener('submit', async (e) => {
         return;
     }
 
-    const reportData = {
+    pendingReportData = {
         notificationGroupId: parseInt(groupId),
         assistedName: document.getElementById('assistedName').value || 'Não informado',
         field1: document.getElementById('field1').value,
         field2: document.getElementById('field2').value,
         field3: document.getElementById('field3').value,
-        field4: document.getElementById('field4').value
+        field4: document.getElementById('field4').value,
+        forceSend: false // Default is false, will be set to true if confirmed via modal
     };
 
-    try {
-        const response = await fetch(`${API_BASE}/reports`, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(reportData)
-        });
-        if (response.ok) {
-            alert('Relatório enviado com sucesso!');
-        } else {
-            const error = await response.json();
-            alert(`Erro: ${error.message || 'Falha ao enviar'}`);
-        }
-    } catch (error) { alert('Erro de conexão com o servidor.'); }
+    const hasViolations = document.querySelectorAll('.suggestion-item').length > 0;
+    const violationModal = document.getElementById('violationModal');
+
+    if (hasViolations && violationModal) {
+        violationModal.style.display = 'flex';
+
+        // Temporarily bind listeners here to ensure they catch the dynamic elements
+        document.getElementById('closeViolationModal').onclick = () => violationModal.style.display = 'none';
+        document.getElementById('cancelSendBtn').onclick = () => violationModal.style.display = 'none';
+        document.getElementById('confirmSendBtn').onclick = () => {
+            violationModal.style.display = 'none';
+            pendingReportData.forceSend = true; // Inject confirmation flag
+            startSendTimer();
+        };
+    } else {
+        // Send normally if no violations
+        executeSendReport();
+    }
 });
 
 async function loadScenarios() {
@@ -344,7 +432,98 @@ scenarioSelect.addEventListener('change', (e) => {
     document.getElementById('field4').value = s.field4Suggestion || '';
 });
 
-neutralizeBtn.addEventListener('click', () => { alert('IA habilitada no MVP.'); });
+neutralizeBtn.addEventListener('click', async () => {
+    // Trigger /deep analysis on all fields manually
+    const btn = neutralizeBtn;
+    const originalText = btn.innerText;
+    btn.innerText = "Analisando...";
+    btn.disabled = true;
+
+    const fields = ['field1', 'field2', 'field3', 'field4'];
+    for (const f of fields) {
+        const el = document.getElementById(f);
+        if (el.value.trim().length > 0) {
+            await analyzeText(f, el.value, 'deep');
+        }
+    }
+
+    btn.innerText = originalText;
+    btn.disabled = false;
+});
+
+// AI Neutralization Logic
+let analyzeTimeout;
+function debounceAnalyze(fieldId, text) {
+    clearTimeout(analyzeTimeout);
+    analyzeTimeout = setTimeout(() => {
+        analyzeText(fieldId, text, 'fast');
+    }, 800);
+}
+
+async function analyzeText(fieldId, text, mode) {
+    if (!text || text.trim().length === 0) {
+        document.getElementById('suggest-' + fieldId).innerHTML = '';
+        return;
+    }
+
+    try {
+        const payload = {
+            text: text,
+            context: 'custody', // We map userRole to context on backend eventually, or send generic here
+            language: 'pt-BR'
+        };
+
+        const res = await fetch(`${API_BASE}/neutralization/${mode}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            renderSuggestions(fieldId, data.suggestions);
+        }
+    } catch (e) {
+        console.warn("Failed to analyze text:", e);
+    }
+}
+
+function renderSuggestions(fieldId, suggestions) {
+    const container = document.getElementById('suggest-' + fieldId);
+    container.innerHTML = '';
+
+    if (!suggestions || suggestions.length === 0) return;
+
+    suggestions.forEach(s => {
+        const div = document.createElement('div');
+        div.className = `suggestion-item severity-${s.severity}`;
+
+        div.innerHTML = `
+            <div class="suggestion-header">
+                <div>
+                    Substitua <span class="suggestion-original">"${s.originalSpan}"</span>
+                    por <span class="suggestion-replacement">"${s.suggestedReplacement}"</span>
+                </div>
+            </div>
+            <div class="suggestion-reason">${s.reason}</div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Bind events to the textareas
+['field1', 'field2', 'field3', 'field4'].forEach(f => {
+    const el = document.getElementById(f);
+    el.addEventListener('keyup', (e) => {
+        debounceAnalyze(f, e.target.value);
+    });
+
+    el.addEventListener('blur', (e) => {
+        // Run it immediately on blur
+        clearTimeout(analyzeTimeout);
+        analyzeText(f, e.target.value, 'fast');
+    });
+});
 
 function updateStatus(text, color) {
     document.getElementById('statusText').innerText = text;

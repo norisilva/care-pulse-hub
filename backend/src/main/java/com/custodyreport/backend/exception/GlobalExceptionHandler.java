@@ -21,6 +21,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
+        ex.printStackTrace();
         Map<String, String> response = new HashMap<>();
         response.put("error", "Internal Server Error");
         response.put("message", "Um erro inesperado ocorreu. Tente novamente mais tarde.");

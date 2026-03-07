@@ -32,6 +32,9 @@ public class Report {
     @Column(columnDefinition = "TEXT")
     private String field4;
     
+    @Transient
+    private boolean forceSend;
+
     private Long notificationGroupId;
     
     private LocalDateTime createdAt;

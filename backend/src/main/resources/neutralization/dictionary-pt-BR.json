@@ -1,0 +1,204 @@
+{
+    "version": "1.0.0",
+    "language": "pt-BR",
+    "contexts": {
+        "custody": {
+            "categories": {
+                "absolutism": {
+                    "description": "Termos que generalizam comportamento como absoluto",
+                    "severity": "HIGH",
+                    "entries": [
+                        {
+                            "ruleId": "ABS_001",
+                            "stems": [
+                                "sempr"
+                            ],
+                            "original": [
+                                "sempre"
+                            ],
+                            "suggestions": [
+                                "frequentemente",
+                                "na maioria das ocasiões",
+                                "em múltiplas situações"
+                            ],
+                            "reason": "Absolutismos dificultam a percepção objetiva dos fatos"
+                        },
+                        {
+                            "ruleId": "ABS_002",
+                            "stems": [
+                                "nunc",
+                                "jama"
+                            ],
+                            "original": [
+                                "nunca",
+                                "jamais"
+                            ],
+                            "suggestions": [
+                                "raramente",
+                                "não foi identificado em",
+                                "não consta registro de"
+                            ],
+                            "reason": "Absolutismos negativos são frequentemente contestados e enfraquecem o relato"
+                        },
+                        {
+                            "ruleId": "ABS_003",
+                            "stems": [
+                                "tod",
+                                "constant"
+                            ],
+                            "original": [
+                                "todo dia",
+                                "o tempo todo",
+                                "constantemente"
+                            ],
+                            "suggestions": [
+                                "em múltiplas ocasiões",
+                                "com frequência",
+                                "repetidamente"
+                            ],
+                            "reason": "Hipérboles de frequência reduzem a credibilidade do relato"
+                        }
+                    ]
+                },
+                "character_judgment": {
+                    "description": "Julgamentos sobre caráter ou intenção da pessoa",
+                    "severity": "HIGH",
+                    "entries": [
+                        {
+                            "ruleId": "CJ_001",
+                            "stems": [
+                                "negligen"
+                            ],
+                            "original": [
+                                "negligente",
+                                "negligenciou",
+                                "negligenciando",
+                                "negligência"
+                            ],
+                            "suggestions": [
+                                "não realizou",
+                                "deixou de realizar",
+                                "não cumpriu"
+                            ],
+                            "reason": "Julgamento de intenção — prefira descrever o fato observável"
+                        },
+                        {
+                            "ruleId": "CJ_002",
+                            "stems": [
+                                "irrespons"
+                            ],
+                            "original": [
+                                "irresponsável",
+                                "irresponsavelmente"
+                            ],
+                            "suggestions": [
+                                "não seguiu o combinado",
+                                "agiu de forma diferente do acordado"
+                            ],
+                            "reason": "Julgamento de caráter — descreva o comportamento, não a pessoa"
+                        },
+                        {
+                            "ruleId": "CJ_003",
+                            "stems": [
+                                "intencional",
+                                "proposit",
+                                "deliber"
+                            ],
+                            "original": [
+                                "intencionalmente",
+                                "de propósito",
+                                "deliberadamente"
+                            ],
+                            "suggestions": [
+                                "conforme observado",
+                                "segundo o que foi registrado"
+                            ],
+                            "reason": "Atribuição de intenção é difícil de provar e aumenta o conflito"
+                        }
+                    ]
+                },
+                "emotional_escalation": {
+                    "description": "Termos que elevam o tom emocional sem agregar fatos",
+                    "severity": "MEDIUM",
+                    "entries": [
+                        {
+                            "ruleId": "EE_001",
+                            "stems": [
+                                "absurd"
+                            ],
+                            "original": [
+                                "absurdo",
+                                "absurda"
+                            ],
+                            "suggestions": [
+                                "ponto de atenção",
+                                "situação que requer revisão"
+                            ],
+                            "reason": "Termo de escalada emocional sem valor informativo"
+                        },
+                        {
+                            "ruleId": "EE_002",
+                            "stems": [
+                                "inadmiss"
+                            ],
+                            "original": [
+                                "inadmissível"
+                            ],
+                            "suggestions": [
+                                "fora do acordado",
+                                "não está de acordo com o combinado"
+                            ],
+                            "reason": "Termo de escalada emocional — prefira referência ao acordo"
+                        },
+                        {
+                            "ruleId": "EE_003",
+                            "stems": [
+                                "falt",
+                                "desrespeit"
+                            ],
+                            "original": [
+                                "falta de respeito",
+                                "desrespeito"
+                            ],
+                            "suggestions": [
+                                "comportamento diferente do esperado",
+                                "situação a ser discutida"
+                            ],
+                            "reason": "Julgamento subjetivo — descreva o comportamento específico"
+                        }
+                    ]
+                },
+                "punctuation_patterns": {
+                    "description": "Padrões de pontuação que indicam escalada emocional",
+                    "severity": "LOW",
+                    "entries": [
+                        {
+                            "ruleId": "PP_001",
+                            "pattern": "!!!+",
+                            "type": "regex",
+                            "suggestions": [
+                                "."
+                            ],
+                            "reason": "Múltiplas exclamações aumentam a percepção de agressividade"
+                        },
+                        {
+                            "ruleId": "PP_002",
+                            "pattern": "[A-ZÁÉÍÓÚÂÊÎÔÛÃÕÀÈÌÒÙÇ]{4,}",
+                            "type": "regex",
+                            "suggestions": [
+                                "[letras minúsculas]"
+                            ],
+                            "reason": "Texto em caixa alta é percebido como agressivo (gritos)"
+                        }
+                    ]
+                }
+            }
+        },
+        "elderly_care": {
+            "categories": {}
+        },
+        "generic": {
+            "categories": {}
+        }
+    }
+}

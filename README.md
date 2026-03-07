@@ -18,6 +18,12 @@ Muitas vezes enfrentamos situações onde a forma como nos comunicamos importa t
 ### Para quem é isso?
 Qualquer pessoa que precise reportar algo regularmente: Pais em guarda compartilhada, cuidadores de idosos, técnicos de enfermagem, pet sitters, mecânicos, etc.
 
+### 🚀 Novidades (v0.1.0)
+- **Camada de Neutralização IA (Fase 1)**: Motor local que sugere correções para termos emocionais, agressivos ou enviesados.
+- **Bloqueio de Backend**: A API agora rejeita automaticamente textos que fujam do padrão neutro sem confirmação explícita.
+- **Controle de Impulso**: Novo sistema de "cool-off" que aguarda 3 minutos (canceláveis) antes do envio real, caso o texto contenha violações.
+- **Dicionário pt-BR Extensível**: Base de regras baseada em Lucene Stemmer para maior precisão em português.
+
 ### Como Começar
 **Windows**:
 1. Certifique-se de ter o **Java 21** instalado.
@@ -50,7 +56,12 @@ CarePulse Hub is a simple, local-first tool that helps people in care responsibi
 
 ### Who is this for?
 Anyone who needs to regularly report something: Parents in custody arrangements, elderly caretakers, private tutors, pet sitters, mechanics, contractors, etc.
-
+53: 
+54: ### 🚀 What's New (v0.1.0)
+55: - **AI Neutralization Layer (Phase 1)**: Local heuristic engine suggesting corrections for emotional or biased terms.
+56: - **Backend Enforcement**: API now rejects non-neutral text unless explicitly confirmed by the user.
+57: - **Impulse Control**: A 3-minute cancelable delay system for reports containing AI violations.
+58: - **Extensible Rules**: pt-BR dictionary based on Lucene stemming for accurate Portuguese matching.
 ### Getting Started
 **Windows**:
 1. Ensure you have **Java 21** installed.

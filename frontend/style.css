@@ -249,6 +249,62 @@ select option {
     color: var(--text-main);
 }
 
+/* AI Suggestions UI */
+.ai-suggestions {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.suggestion-item {
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 4px solid var(--primary);
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.suggestion-item.severity-HIGH {
+    border-left-color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.suggestion-item.severity-MEDIUM {
+    border-left-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.suggestion-item.severity-LOW {
+    border-left-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.suggestion-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+}
+
+.suggestion-original {
+    font-weight: bold;
+    color: #ef4444;
+    text-decoration: line-through;
+}
+
+.suggestion-replacement {
+    font-weight: bold;
+    color: #10b981;
+}
+
+.suggestion-reason {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+
 
 .btn-icon {
     background: none;
