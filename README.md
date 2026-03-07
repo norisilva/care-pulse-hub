@@ -27,7 +27,7 @@ Qualquer pessoa que precise reportar algo regularmente: Pais em guarda compartil
 1. Instale o Java 21 (ex: `sudo apt install openjdk-21-jre`).
 2. Abra o terminal na pasta do projeto e rode: `bash start.sh`.
 
-*(Importante: O sistema agora roda na porta 8765 por padrão para evitar conflitos com outros apps).*
+*(Importante: O sistema roda na porta 8765 por padrão para evitar conflitos com outros apps).*
 
 ### Inicialização Automática (Opção Recomendada)
 Para garantir que os **relatórios agendados** funcionem sempre, você pode configurar o sistema para rodar junto com o Windows/Linux:
@@ -60,7 +60,7 @@ Anyone who needs to regularly report something: Parents in custody arrangements,
 1. Install Java 21 (e.g., `sudo apt install openjdk-21-jre`).
 2. Open the terminal in the project folder and run: `bash start.sh`.
 
-*(Note: The backend now runs on port 8765 by default to prevent conflicts with other common software).*
+*(Note: The backend runs on port 8765 by default to prevent conflicts with other common software).*
 
 ### Automatic OS Startup (Recommended)
 To ensure **scheduled reports** are always sent, you should configure the system to start with your OS:
