@@ -45,3 +45,6 @@ CarePulseHub.vbs
 # === Agent Workspace ===
 .agent/
 .gemini/
+
+# === Documentation Drafts ===
+LINKEDIN-DRAFT.md
