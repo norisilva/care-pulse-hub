@@ -1,12 +1,29 @@
 {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "language": "pt-BR",
+    "meta": {
+        "framework": "Comunicação Não-Violenta (CNV) — Marshall Rosenberg",
+        "pillars": [
+            "Observação sem avaliação",
+            "Sentimento sem julgamento",
+            "Necessidade sem exigência",
+            "Pedido sem demanda"
+        ],
+        "severityScale": {
+            "CRITICAL": "Impede resolução — deve ser substituído sempre",
+            "HIGH": "Escalada provável — substituição fortemente recomendada",
+            "MEDIUM": "Aumenta tensão — substituição recomendada",
+            "LOW": "Tom inadequado — revisar conforme contexto"
+        }
+    },
     "contexts": {
         "custody": {
+            "description": "Disputas de guarda, divórcio e parentalidade compartilhada",
             "categories": {
                 "absolutism": {
-                    "description": "Termos que generalizam comportamento como absoluto",
+                    "description": "Generalizações absolutas que distorcem a percepção dos fatos",
                     "severity": "HIGH",
+                    "cnvPillar": "Observação sem avaliação",
                     "entries": [
                         {
                             "ruleId": "ABS_001",
@@ -14,14 +31,17 @@
                                 "sempr"
                             ],
                             "original": [
-                                "sempre"
+                                "sempre",
+                                "todo sempre"
                             ],
                             "suggestions": [
                                 "frequentemente",
                                 "na maioria das ocasiões",
-                                "em múltiplas situações"
+                                "em múltiplas situações registradas",
+                                "nas seguintes datas observadas"
                             ],
-                            "reason": "Absolutismos dificultam a percepção objetiva dos fatos"
+                            "cnvNote": "CNV: substitua a generalização por observação datada e específica",
+                            "reason": "Absolutismos dificultam a percepção objetiva dos fatos e são facilmente refutados"
                         },
                         {
                             "ruleId": "ABS_002",
@@ -31,38 +51,85 @@
                             ],
                             "original": [
                                 "nunca",
-                                "jamais"
+                                "jamais",
+                                "em hipótese nenhuma"
                             ],
                             "suggestions": [
                                 "raramente",
-                                "não foi identificado em",
-                                "não consta registro de"
+                                "não foi identificado registro de",
+                                "não consta ocorrência de",
+                                "nas ocasiões verificadas, não houve"
                             ],
-                            "reason": "Absolutismos negativos são frequentemente contestados e enfraquecem o relato"
+                            "cnvNote": "CNV: descreva o que foi observado, não o que nunca ocorreu",
+                            "reason": "Absolutismos negativos são facilmente contestados e enfraquecem o relato"
                         },
                         {
                             "ruleId": "ABS_003",
                             "stems": [
                                 "tod",
-                                "constant"
+                                "constant",
+                                "incessant"
                             ],
                             "original": [
                                 "todo dia",
                                 "o tempo todo",
-                                "constantemente"
+                                "constantemente",
+                                "incessantemente",
+                                "sem parar"
                             ],
                             "suggestions": [
                                 "em múltiplas ocasiões",
                                 "com frequência",
-                                "repetidamente"
+                                "repetidamente",
+                                "nas seguintes situações documentadas"
                             ],
-                            "reason": "Hipérboles de frequência reduzem a credibilidade do relato"
+                            "cnvNote": "CNV: ancore no tempo — 'na semana de X a Y, ocorreu três vezes'",
+                            "reason": "Hipérboles de frequência reduzem credibilidade e dificultam avaliação técnica"
+                        },
+                        {
+                            "ruleId": "ABS_004",
+                            "stems": [
+                                "nenhum",
+                                "nen"
+                            ],
+                            "original": [
+                                "nenhum esforço",
+                                "nenhuma vez",
+                                "nenhuma atenção",
+                                "em nenhum momento"
+                            ],
+                            "suggestions": [
+                                "em poucos momentos registrados",
+                                "não foram identificadas evidências de",
+                                "nas ocasiões documentadas, não houve"
+                            ],
+                            "cnvNote": "CNV: afirmação negativa absoluta requer evidência; prefira o observável",
+                            "reason": "Negação total exige prova impossível e gera reação defensiva"
+                        },
+                        {
+                            "ruleId": "ABS_005",
+                            "stems": [
+                                "qualqu"
+                            ],
+                            "original": [
+                                "qualquer pessoa veria",
+                                "qualquer um sabe",
+                                "é óbvio para todos"
+                            ],
+                            "suggestions": [
+                                "segundo o que foi observado",
+                                "com base nos registros disponíveis",
+                                "conforme documentado"
+                            ],
+                            "cnvNote": "CNV: não generalize percepções — descreva o que você especificamente observou",
+                            "reason": "Apelo à obviedade invalida percepções individuais e cria aliançamento implícito"
                         }
                     ]
                 },
                 "character_judgment": {
-                    "description": "Julgamentos sobre caráter ou intenção da pessoa",
+                    "description": "Julgamentos sobre caráter, personalidade ou intenção da pessoa",
                     "severity": "HIGH",
+                    "cnvPillar": "Observação sem avaliação",
                     "entries": [
                         {
                             "ruleId": "CJ_001",
@@ -78,8 +145,10 @@
                             "suggestions": [
                                 "não realizou",
                                 "deixou de realizar",
-                                "não cumpriu"
+                                "não cumpriu",
+                                "não foi executado"
                             ],
+                            "cnvNote": "CNV: descreva o comportamento observável, não julgue o caráter",
                             "reason": "Julgamento de intenção — prefira descrever o fato observável"
                         },
                         {
@@ -89,13 +158,16 @@
                             ],
                             "original": [
                                 "irresponsável",
-                                "irresponsavelmente"
+                                "irresponsavelmente",
+                                "sem responsabilidade"
                             ],
                             "suggestions": [
                                 "não seguiu o combinado",
-                                "agiu de forma diferente do acordado"
+                                "agiu de forma diferente do acordado",
+                                "não cumpriu o que foi estabelecido em"
                             ],
-                            "reason": "Julgamento de caráter — descreva o comportamento, não a pessoa"
+                            "cnvNote": "CNV: rotular uma pessoa como irresponsável bloqueia o diálogo; descreva o ato",
+                            "reason": "Julgamento de caráter — descreva o comportamento, não classifique a pessoa"
                         },
                         {
                             "ruleId": "CJ_003",
@@ -107,19 +179,108 @@
                             "original": [
                                 "intencionalmente",
                                 "de propósito",
-                                "deliberadamente"
+                                "deliberadamente",
+                                "com intenção de prejudicar"
                             ],
                             "suggestions": [
-                                "conforme observado",
-                                "segundo o que foi registrado"
+                                "conforme foi observado",
+                                "segundo o que foi registrado",
+                                "como documentado em"
                             ],
-                            "reason": "Atribuição de intenção é difícil de provar e aumenta o conflito"
+                            "cnvNote": "CNV: intenções são invisíveis; relate apenas o comportamento concreto",
+                            "reason": "Atribuição de intenção é difícil de provar e amplifica o conflito"
+                        },
+                        {
+                            "ruleId": "CJ_004",
+                            "stems": [
+                                "manipul"
+                            ],
+                            "original": [
+                                "manipulador",
+                                "manipuladora",
+                                "manipulação",
+                                "está manipulando"
+                            ],
+                            "suggestions": [
+                                "apresentou informações de forma seletiva",
+                                "modificou a versão dos fatos em relação ao relatado anteriormente",
+                                "as informações fornecidas diferem do registrado em"
+                            ],
+                            "cnvNote": "CNV: 'manipulação' é avaliação; descreva a discrepância factual",
+                            "reason": "Termo altamente adversarial; substitua pela inconsistência concreta"
+                        },
+                        {
+                            "ruleId": "CJ_005",
+                            "stems": [
+                                "egoíst",
+                                "egocêntr"
+                            ],
+                            "original": [
+                                "egoísta",
+                                "egoísta",
+                                "egocêntrico",
+                                "egocêntrica",
+                                "só pensa em si"
+                            ],
+                            "suggestions": [
+                                "priorizou interesses próprios em detrimento de",
+                                "não considerou as necessidades de",
+                                "tomou a decisão sem consultar"
+                            ],
+                            "cnvNote": "CNV: descreva a necessidade não atendida, não o traço de personalidade",
+                            "reason": "Rótulo de caráter permanente; prefira descrever a necessidade específica ignorada"
+                        },
+                        {
+                            "ruleId": "CJ_006",
+                            "stems": [
+                                "inapt",
+                                "incapaz",
+                                "incompet"
+                            ],
+                            "original": [
+                                "inapto",
+                                "incapaz",
+                                "incompetente",
+                                "não tem condições"
+                            ],
+                            "suggestions": [
+                                "não demonstrou, nas situações documentadas, a habilidade de",
+                                "nas ocasiões observadas, não foi possível identificar",
+                                "há necessidade de suporte para"
+                            ],
+                            "cnvNote": "CNV: avalie a ação em contexto específico, não a capacidade global da pessoa",
+                            "reason": "Classificação global de capacidade é atacável; atenha-se a situações concretas"
+                        },
+                        {
+                            "ruleId": "CJ_007",
+                            "stems": [
+                                "psicopat",
+                                "narcis",
+                                "transtorn"
+                            ],
+                            "original": [
+                                "psicopata",
+                                "narcisista",
+                                "tem transtorno",
+                                "é louco",
+                                "é louca",
+                                "desequilibrado",
+                                "desequilibrada"
+                            ],
+                            "suggestions": [
+                                "apresentou comportamentos que merecem avaliação especializada",
+                                "os comportamentos relatados incluem",
+                                "conforme documentado por profissional competente"
+                            ],
+                            "cnvNote": "CNV: diagnósticos informais são avaliações, não observações — encaminhe para laudo técnico",
+                            "reason": "Diagnóstico leigo é facilmente refutado e prejudica a credibilidade do relato"
                         }
                     ]
                 },
                 "emotional_escalation": {
-                    "description": "Termos que elevam o tom emocional sem agregar fatos",
+                    "description": "Termos que elevam o tom emocional sem agregar informação factual",
                     "severity": "MEDIUM",
+                    "cnvPillar": "Sentimento sem julgamento",
                     "entries": [
                         {
                             "ruleId": "EE_001",
@@ -128,13 +289,16 @@
                             ],
                             "original": [
                                 "absurdo",
-                                "absurda"
+                                "absurda",
+                                "é um absurdo"
                             ],
                             "suggestions": [
                                 "ponto de atenção",
-                                "situação que requer revisão"
+                                "situação que requer revisão",
+                                "divergência a ser analisada"
                             ],
-                            "reason": "Termo de escalada emocional sem valor informativo"
+                            "cnvNote": "CNV: 'absurdo' expressa avaliação; se há sentimento, nomeie-o — 'fico preocupado quando...'",
+                            "reason": "Escalada emocional sem valor informativo"
                         },
                         {
                             "ruleId": "EE_002",
@@ -142,13 +306,16 @@
                                 "inadmiss"
                             ],
                             "original": [
-                                "inadmissível"
+                                "inadmissível",
+                                "inaceitável"
                             ],
                             "suggestions": [
                                 "fora do acordado",
-                                "não está de acordo com o combinado"
+                                "não está de acordo com o estabelecido",
+                                "contradiz o que foi combinado em"
                             ],
-                            "reason": "Termo de escalada emocional — prefira referência ao acordo"
+                            "cnvNote": "CNV: prefira referência ao acordo concreto violado",
+                            "reason": "Escalada emocional — ancora na norma, não na reação"
                         },
                         {
                             "ruleId": "EE_003",
@@ -158,19 +325,445 @@
                             ],
                             "original": [
                                 "falta de respeito",
-                                "desrespeito"
+                                "desrespeito",
+                                "total falta de consideração"
                             ],
                             "suggestions": [
                                 "comportamento diferente do esperado",
-                                "situação a ser discutida"
+                                "situação a ser discutida",
+                                "ação que não levou em conta"
                             ],
-                            "reason": "Julgamento subjetivo — descreva o comportamento específico"
+                            "cnvNote": "CNV: descreva o comportamento específico, não a qualidade moral da ação",
+                            "reason": "Julgamento subjetivo de valor — descreva o comportamento"
+                        },
+                        {
+                            "ruleId": "EE_004",
+                            "stems": [
+                                "horríve",
+                                "terrív",
+                                "horroros"
+                            ],
+                            "original": [
+                                "horrível",
+                                "terrível",
+                                "horroroso",
+                                "um horror"
+                            ],
+                            "suggestions": [
+                                "preocupante",
+                                "requer atenção",
+                                "situação que impacta negativamente"
+                            ],
+                            "cnvNote": "CNV: nomeie a necessidade não atendida — 'quando isso ocorre, a necessidade de segurança não é atendida'",
+                            "reason": "Adjetivos extremos amplificam o conflito sem adicionar informação"
+                        },
+                        {
+                            "ruleId": "EE_005",
+                            "stems": [
+                                "insuportáv",
+                                "não aguent"
+                            ],
+                            "original": [
+                                "insuportável",
+                                "não aguento mais",
+                                "é impossível conviver"
+                            ],
+                            "suggestions": [
+                                "a situação requer mudança",
+                                "há necessidade de ajuste no acordo",
+                                "o padrão atual não está funcionando"
+                            ],
+                            "cnvNote": "CNV: expresse a necessidade de mudança sem avaliar a pessoa",
+                            "reason": "Exasperação não documenta fatos — substitua por solicitação concreta"
+                        },
+                        {
+                            "ruleId": "EE_006",
+                            "stems": [
+                                "vergonhos",
+                                "vexatór"
+                            ],
+                            "original": [
+                                "vergonhoso",
+                                "vergonhosa",
+                                "vexatório",
+                                "constrangedor"
+                            ],
+                            "suggestions": [
+                                "inadequado ao contexto",
+                                "fora do padrão esperado",
+                                "situação que causou impacto negativo em"
+                            ],
+                            "cnvNote": "CNV: vergonha é sentimento interno; descreva o impacto observável",
+                            "reason": "Termos de vergonha pública intensificam reação defensiva"
+                        }
+                    ]
+                },
+                "blame_language": {
+                    "description": "Linguagem que atribui culpa direta em vez de descrever responsabilidade",
+                    "severity": "HIGH",
+                    "cnvPillar": "Observação sem avaliação",
+                    "entries": [
+                        {
+                            "ruleId": "BL_001",
+                            "stems": [
+                                "culpa",
+                                "culpad",
+                                "culpabil"
+                            ],
+                            "original": [
+                                "é culpa sua",
+                                "culpa do pai",
+                                "culpa da mãe",
+                                "tem culpa de"
+                            ],
+                            "suggestions": [
+                                "a decisão de X resultou em",
+                                "após a ação de X, observou-se",
+                                "o comportamento de X impactou"
+                            ],
+                            "cnvNote": "CNV: culpa bloqueia cooperação; descreva causa e efeito observável",
+                            "reason": "Atribuição de culpa direta impede responsabilização colaborativa"
+                        },
+                        {
+                            "ruleId": "BL_002",
+                            "stems": [
+                                "por caus"
+                            ],
+                            "original": [
+                                "por causa dele",
+                                "por causa dela",
+                                "por causa disso tudo"
+                            ],
+                            "suggestions": [
+                                "em decorrência de",
+                                "após o ocorrido em",
+                                "como consequência da situação registrada em"
+                            ],
+                            "cnvNote": "CNV: relação de causa-efeito, não de culpa — use linguagem sistêmica",
+                            "reason": "Causalidade pessoal direta amplifica o conflito"
+                        },
+                        {
+                            "ruleId": "BL_003",
+                            "stems": [
+                                "provocou",
+                                "provocaç",
+                                "provocativ"
+                            ],
+                            "original": [
+                                "me provocou",
+                                "provocou a criança",
+                                "provocação constante"
+                            ],
+                            "suggestions": [
+                                "o comportamento de X gerou reação em",
+                                "após a ação de X, ocorreu",
+                                "o ato de X precedeu"
+                            ],
+                            "cnvNote": "CNV: descreva a sequência de eventos, não a intenção de provocar",
+                            "reason": "Provação implica intenção — descreva a sequência factual"
+                        }
+                    ]
+                },
+                "victimization": {
+                    "description": "Posicionamento de vítima que dificulta a análise objetiva",
+                    "severity": "MEDIUM",
+                    "cnvPillar": "Necessidade sem exigência",
+                    "entries": [
+                        {
+                            "ruleId": "VT_001",
+                            "stems": [
+                                "persegu",
+                                "me pers"
+                            ],
+                            "original": [
+                                "me persegue",
+                                "está me perseguindo",
+                                "perseguição"
+                            ],
+                            "suggestions": [
+                                "tem adotado comportamentos que impactam negativamente minha rotina, como",
+                                "nas seguintes situações documentadas, observei"
+                            ],
+                            "cnvNote": "CNV: perseguição é avaliação; descreva os comportamentos específicos e seu impacto",
+                            "reason": "Linguagem de perseguição exige prova de intenção — liste os fatos"
+                        },
+                        {
+                            "ruleId": "VT_002",
+                            "stems": [
+                                "sofrendo",
+                                "muito sofrimento",
+                                "destruindo"
+                            ],
+                            "original": [
+                                "estou sofrendo demais",
+                                "está destruindo minha vida",
+                                "não consigo mais"
+                            ],
+                            "suggestions": [
+                                "a situação impacta minha capacidade de",
+                                "identifico necessidade de suporte para",
+                                "solicito que se considere o impacto de"
+                            ],
+                            "cnvNote": "CNV: nomeie a necessidade não atendida em vez de expressar apenas o sofrimento",
+                            "reason": "Sofrimento sem especificidade não gera ação; articule a necessidade"
+                        }
+                    ]
+                },
+                "demand_language": {
+                    "description": "Linguagem de exigência em vez de pedido — CNV: pedido vs demanda",
+                    "severity": "MEDIUM",
+                    "cnvPillar": "Pedido sem demanda",
+                    "entries": [
+                        {
+                            "ruleId": "DL_001",
+                            "stems": [
+                                "tem que",
+                                "tem obrigação",
+                                "é obrigado"
+                            ],
+                            "original": [
+                                "tem que fazer",
+                                "tem obrigação de",
+                                "é obrigado a",
+                                "precisa agir"
+                            ],
+                            "suggestions": [
+                                "solicito que",
+                                "gostaria que fosse considerado",
+                                "proponho que",
+                                "peço formalmente que"
+                            ],
+                            "cnvNote": "CNV: demanda cria resistência; pedido claro e específico gera cooperação",
+                            "reason": "Linguagem impositiva ativa resistência — prefira pedido concreto e verificável"
+                        },
+                        {
+                            "ruleId": "DL_002",
+                            "stems": [
+                                "exijo",
+                                "exigência"
+                            ],
+                            "original": [
+                                "exijo",
+                                "exijo que",
+                                "minha exigência é"
+                            ],
+                            "suggestions": [
+                                "solicito formalmente",
+                                "apresento como pedido",
+                                "proponho como condição a ser negociada"
+                            ],
+                            "cnvNote": "CNV: exigência pressupõe punição pelo não cumprimento; pedido pressupõe diálogo",
+                            "reason": "Exigência explicita hierarquia conflituosa — reformule como pedido específico"
+                        },
+                        {
+                            "ruleId": "DL_003",
+                            "stems": [
+                                "não me rest"
+                            ],
+                            "original": [
+                                "não me resta alternativa",
+                                "serei obrigado a",
+                                "serei forçado a"
+                            ],
+                            "suggestions": [
+                                "caso não haja acordo, considerarei",
+                                "diante da ausência de solução, a próxima etapa será",
+                                "proponho resolução antes de acionar"
+                            ],
+                            "cnvNote": "CNV: ameaça velada — transforme em pedido com consequência transparente",
+                            "reason": "Ameaça velada aumenta tensão; prefira consequência clara e proporcional"
+                        }
+                    ]
+                },
+                "minimization": {
+                    "description": "Termos que minimizam ou invalidam a experiência do outro",
+                    "severity": "HIGH",
+                    "cnvPillar": "Sentimento sem julgamento",
+                    "entries": [
+                        {
+                            "ruleId": "MN_001",
+                            "stems": [
+                                "exagero",
+                                "dramatis"
+                            ],
+                            "original": [
+                                "é exagero",
+                                "está exagerando",
+                                "dramatização",
+                                "está dramatizando"
+                            ],
+                            "suggestions": [
+                                "as perspectivas diferem sobre este ponto",
+                                "há interpretações distintas sobre o ocorrido",
+                                "a percepção relatada merece ser considerada"
+                            ],
+                            "cnvNote": "CNV: invalidar sentimentos impede conexão — reconheça a percepção mesmo sem concordar",
+                            "reason": "Invalidação emocional bloqueia o diálogo e aprofunda o conflito"
+                        },
+                        {
+                            "ruleId": "MN_002",
+                            "stems": [
+                                "besteira",
+                                "bobag",
+                                "frescur"
+                            ],
+                            "original": [
+                                "besteira",
+                                "bobagem",
+                                "frescura",
+                                "isso não é nada"
+                            ],
+                            "suggestions": [
+                                "ponto de vista diferente",
+                                "divergência a ser discutida",
+                                "situação que cada parte percebe de forma distinta"
+                            ],
+                            "cnvNote": "CNV: desqualificação da experiência do outro destrói a confiança necessária para coparentalidade",
+                            "reason": "Desqualificação direta da experiência alheia"
+                        }
+                    ]
+                },
+                "alienation_risk": {
+                    "description": "Linguagem que indica ou pratica alienação parental",
+                    "severity": "CRITICAL",
+                    "cnvPillar": "Observação sem avaliação",
+                    "entries": [
+                        {
+                            "ruleId": "AR_001",
+                            "stems": [
+                                "criança não quer",
+                                "filho não quer"
+                            ],
+                            "original": [
+                                "a criança não quer ver",
+                                "o filho não quer ir",
+                                "a filha recusa"
+                            ],
+                            "suggestions": [
+                                "a criança expressou, na data X, preferência por",
+                                "foi relatado que na situação Y, a criança demonstrou",
+                                "recomenda-se avaliação por profissional para compreender a situação"
+                            ],
+                            "cnvNote": "CNV: relato de recusa da criança requer observação neutra e avaliação especializada",
+                            "reason": "Pode indicar ou ser confundido com alienação parental — requeira avaliação técnica"
+                        },
+                        {
+                            "ruleId": "AR_002",
+                            "stems": [
+                                "fala mal",
+                                "diz que o pai",
+                                "diz que a mãe"
+                            ],
+                            "original": [
+                                "fala mal de mim",
+                                "diz que o pai é ruim",
+                                "diz que a mãe não presta"
+                            ],
+                            "suggestions": [
+                                "a criança relatou, na data X, a seguinte frase",
+                                "foi registrado o seguinte comportamento verbal",
+                                "a criança demonstrou, na situação Y, o seguinte"
+                            ],
+                            "cnvNote": "CNV: relate falas específicas com data e contexto; evite interpretar intenção",
+                            "reason": "Relatos de alienação exigem evidências concretas e datas"
+                        }
+                    ]
+                },
+                "accusatory_questions": {
+                    "description": "Perguntas retóricas que funcionam como acusações veladas",
+                    "severity": "MEDIUM",
+                    "cnvPillar": "Pedido sem demanda",
+                    "entries": [
+                        {
+                            "ruleId": "AQ_001",
+                            "stems": [
+                                "como pode",
+                                "como é possív"
+                            ],
+                            "original": [
+                                "como pode fazer isso?",
+                                "como é possível?",
+                                "como alguém consegue?"
+                            ],
+                            "suggestions": [
+                                "solicito esclarecimento sobre",
+                                "gostaria de entender os motivos de",
+                                "proponho discussão sobre"
+                            ],
+                            "cnvNote": "CNV: pergunta retórica acusatória — converta em pedido honesto de informação",
+                            "reason": "Pergunta retórica funciona como acusação; prefira pedido direto de explicação"
+                        },
+                        {
+                            "ruleId": "AQ_002",
+                            "stems": [
+                                "quem você pens",
+                                "quem ela pens",
+                                "quem ele pens"
+                            ],
+                            "original": [
+                                "quem você pensa que é?",
+                                "quem ela pensa que é?",
+                                "quem ele pensa que é?"
+                            ],
+                            "suggestions": [
+                                "a ação tomada não estava prevista no acordo",
+                                "solicito que decisões desse tipo sejam comunicadas previamente"
+                            ],
+                            "cnvNote": "CNV: ataque à identidade — converta em observação + pedido",
+                            "reason": "Ataque à identidade gera reação defensiva imediata"
+                        }
+                    ]
+                },
+                "passive_aggression": {
+                    "description": "Agressividade velada, ironia e sarcasmo",
+                    "severity": "HIGH",
+                    "cnvPillar": "Observação sem avaliação",
+                    "entries": [
+                        {
+                            "ruleId": "PA_001",
+                            "stems": [
+                                "claro que",
+                                "óbvio que",
+                                "lógico que"
+                            ],
+                            "original": [
+                                "claro que sim",
+                                "óbvio que não fez",
+                                "lógico que ignorou"
+                            ],
+                            "suggestions": [
+                                "foi observado que",
+                                "registrou-se que",
+                                "conforme documentado"
+                            ],
+                            "cnvNote": "CNV: sarcasmo mascara raiva e impede compreensão genuína",
+                            "reason": "Ironia e sarcasmo são formas de agressão não reconhecida"
+                        },
+                        {
+                            "ruleId": "PA_002",
+                            "stems": [
+                                "parabéns",
+                                "que ótimo que",
+                                "maravilhoso"
+                            ],
+                            "original": [
+                                "parabéns, foi ótimo isso",
+                                "que ótimo que fez isso",
+                                "maravilhoso, como sempre"
+                            ],
+                            "suggestions": [
+                                "sobre o ocorrido em X, identifico preocupação com",
+                                "gostaria de discutir o impacto de"
+                            ],
+                            "cnvNote": "CNV: sarcasmo via elogio invertido — nomeie o sentimento e a necessidade real",
+                            "reason": "Elogio sarcástico contamina o tom do documento"
                         }
                     ]
                 },
                 "punctuation_patterns": {
                     "description": "Padrões de pontuação que indicam escalada emocional",
                     "severity": "LOW",
+                    "cnvPillar": "Sentimento sem julgamento",
                     "entries": [
                         {
                             "ruleId": "PP_001",
@@ -179,7 +772,8 @@
                             "suggestions": [
                                 "."
                             ],
-                            "reason": "Múltiplas exclamações aumentam a percepção de agressividade"
+                            "cnvNote": "CNV: emoção intensa — nomeie o sentimento com palavras ao invés de pontuação",
+                            "reason": "Múltiplas exclamações aumentam percepção de agressividade"
                         },
                         {
                             "ruleId": "PP_002",
@@ -188,17 +782,397 @@
                             "suggestions": [
                                 "[letras minúsculas]"
                             ],
-                            "reason": "Texto em caixa alta é percebido como agressivo (gritos)"
+                            "cnvNote": "CNV: caixa alta equivale a gritar — expresse intensidade com palavras precisas",
+                            "reason": "Texto em caixa alta é percebido como agressivo"
+                        },
+                        {
+                            "ruleId": "PP_003",
+                            "pattern": "\\.{3,}",
+                            "type": "regex",
+                            "suggestions": [
+                                ". "
+                            ],
+                            "cnvNote": "CNV: reticências em excesso criam ambiguidade e tom passivo-agressivo",
+                            "reason": "Excesso de reticências transmite ironia ou ameaça velada"
                         }
                     ]
                 }
             }
         },
         "elderly_care": {
-            "categories": {}
+            "description": "Cuidado com idosos — contextos de tutela, curatela e cuidado familiar",
+            "categories": {
+                "condescension": {
+                    "description": "Linguagem condescendente que infantiliza o idoso",
+                    "severity": "HIGH",
+                    "cnvPillar": "Observação sem avaliação",
+                    "entries": [
+                        {
+                            "ruleId": "EC_CON_001",
+                            "stems": [
+                                "coitad"
+                            ],
+                            "original": [
+                                "coitado",
+                                "coitada",
+                                "tadinho",
+                                "tadinha"
+                            ],
+                            "suggestions": [
+                                "a pessoa relatou",
+                                "foi observado que a pessoa",
+                                "a situação da pessoa indica"
+                            ],
+                            "cnvNote": "CNV: piedade é avaliação; descreva a situação concreta sem filtro emocional",
+                            "reason": "Linguagem de pena infantiliza e reduz a autonomia percebida do idoso"
+                        },
+                        {
+                            "ruleId": "EC_CON_002",
+                            "stems": [
+                                "não entend",
+                                "não compreend"
+                            ],
+                            "original": [
+                                "não entende mais nada",
+                                "não compreende o que acontece",
+                                "perdeu a noção"
+                            ],
+                            "suggestions": [
+                                "apresentou dificuldade em compreender X na data Y",
+                                "necessita de suporte para",
+                                "requer avaliação cognitiva para"
+                            ],
+                            "cnvNote": "CNV: generalizações cognitivas são avaliações; descreva a situação específica",
+                            "reason": "Generalização capacitária sem base técnica — requeira laudo"
+                        },
+                        {
+                            "ruleId": "EC_CON_003",
+                            "stems": [
+                                "criancin",
+                                "do jeit",
+                                "tratar com"
+                            ],
+                            "original": [
+                                "temos que tratar como criança",
+                                "é como lidar com criança",
+                                "tem que falar devagarzinho"
+                            ],
+                            "suggestions": [
+                                "a comunicação requer adaptações, como",
+                                "foi identificado que a pessoa responde melhor quando",
+                                "recomenda-se abordagem de comunicação clara e direta"
+                            ],
+                            "cnvNote": "CNV: adaptação de comunicação é diferente de infantilização — seja específico",
+                            "reason": "Comparação com criança viola a dignidade da pessoa"
+                        }
+                    ]
+                },
+                "capability_denial": {
+                    "description": "Negação das capacidades do idoso sem base técnica",
+                    "severity": "HIGH",
+                    "cnvPillar": "Observação sem avaliação",
+                    "entries": [
+                        {
+                            "ruleId": "EC_CAP_001",
+                            "stems": [
+                                "não tem condição",
+                                "não consegue mais"
+                            ],
+                            "original": [
+                                "não tem mais condições",
+                                "não consegue mais nada",
+                                "perdeu a capacidade"
+                            ],
+                            "suggestions": [
+                                "nas situações documentadas, apresentou limitação para",
+                                "requer suporte nas seguintes atividades",
+                                "segundo avaliação de [profissional], necessita de apoio para"
+                            ],
+                            "cnvNote": "CNV: capacidade é variável e contextual; descreva o que foi observado em situação específica",
+                            "reason": "Negação global de capacidade requer laudo técnico — liste limitações específicas"
+                        },
+                        {
+                            "ruleId": "EC_CAP_002",
+                            "stems": [
+                                "não pode decid",
+                                "não está em condição de decid"
+                            ],
+                            "original": [
+                                "não pode mais decidir",
+                                "não está em condições de decidir",
+                                "não sabe mais o que quer"
+                            ],
+                            "suggestions": [
+                                "a capacidade decisória para X requer avaliação especializada",
+                                "nas situações Y e Z, foi observada dificuldade em",
+                                "recomenda-se avaliação de capacidade civil por profissional competente"
+                            ],
+                            "cnvNote": "CNV: autonomia é direito fundamental; a restrição requer evidência técnica específica",
+                            "reason": "Restrição de autonomia sem laudo pode constituir violação de direitos"
+                        }
+                    ]
+                },
+                "financial_language": {
+                    "description": "Linguagem sobre recursos financeiros do idoso",
+                    "severity": "CRITICAL",
+                    "cnvPillar": "Observação sem avaliação",
+                    "entries": [
+                        {
+                            "ruleId": "EC_FIN_001",
+                            "stems": [
+                                "dinheiro del",
+                                "patrimônio del",
+                                "herança"
+                            ],
+                            "original": [
+                                "o dinheiro dele",
+                                "o dinheiro dela",
+                                "o patrimônio dele vai para",
+                                "como vamos dividir a herança"
+                            ],
+                            "suggestions": [
+                                "os recursos da pessoa devem ser geridos conforme",
+                                "a administração patrimonial requer",
+                                "o planejamento financeiro da pessoa inclui"
+                            ],
+                            "cnvNote": "CNV: foco no bem-estar da pessoa, não nos recursos disponíveis",
+                            "reason": "Linguagem patrimonial focada em herdeiros pode indicar conflito de interesse"
+                        }
+                    ]
+                }
+            }
         },
         "generic": {
-            "categories": {}
+            "description": "Contexto geral — aplicável a mediação, comunicação interpessoal e documentos formais",
+            "categories": {
+                "generalizations": {
+                    "description": "Generalizações sobre comportamento humano",
+                    "severity": "MEDIUM",
+                    "cnvPillar": "Observação sem avaliação",
+                    "entries": [
+                        {
+                            "ruleId": "GN_GEN_001",
+                            "stems": [
+                                "gente assim",
+                                "pessoa assim"
+                            ],
+                            "original": [
+                                "gente assim não muda",
+                                "pessoa assim é sempre",
+                                "todo mundo sabe como é"
+                            ],
+                            "suggestions": [
+                                "no padrão observado até o momento",
+                                "nas situações documentadas, o comportamento foi",
+                                "com base no histórico registrado"
+                            ],
+                            "cnvNote": "CNV: julgamento permanente sobre a pessoa — observe o padrão de comportamento, não a essência",
+                            "reason": "Generalização permanente sobre caráter impede mudança e diálogo"
+                        }
+                    ]
+                },
+                "loaded_comparisons": {
+                    "description": "Comparações depreciativas com terceiros",
+                    "severity": "MEDIUM",
+                    "cnvPillar": "Observação sem avaliação",
+                    "entries": [
+                        {
+                            "ruleId": "GN_COM_001",
+                            "stems": [
+                                "qualquer um faria",
+                                "até uma criança sabe"
+                            ],
+                            "original": [
+                                "qualquer um faria melhor",
+                                "até uma criança sabe fazer",
+                                "qualquer outro no seu lugar"
+                            ],
+                            "suggestions": [
+                                "o resultado esperado era",
+                                "o padrão acordado prevê",
+                                "em situações similares, observou-se"
+                            ],
+                            "cnvNote": "CNV: comparação depreciativa ataca identidade; descreva o resultado esperado",
+                            "reason": "Comparação com padrão absoluto humilha sem gerar informação útil"
+                        }
+                    ]
+                },
+                "request_vs_demand": {
+                    "description": "Reformulação de demandas em pedidos — núcleo da CNV",
+                    "severity": "MEDIUM",
+                    "cnvPillar": "Pedido sem demanda",
+                    "entries": [
+                        {
+                            "ruleId": "GN_RD_001",
+                            "stems": [
+                                "você deveria",
+                                "você precisa"
+                            ],
+                            "original": [
+                                "você deveria saber",
+                                "você precisa mudar",
+                                "você tem que entender"
+                            ],
+                            "suggestions": [
+                                "peço que considere",
+                                "gostaria de conversar sobre",
+                                "proponho que revisemos"
+                            ],
+                            "cnvNote": "CNV: 'deveria' implica julgamento moral; pedido claro e específico é mais eficaz",
+                            "reason": "Linguagem prescritiva ativa resistência — prefira pedido direto"
+                        },
+                        {
+                            "ruleId": "GN_RD_002",
+                            "stems": [
+                                "se você se import"
+                            ],
+                            "original": [
+                                "se você se importasse",
+                                "se você ligasse para",
+                                "se fosse uma pessoa de bem"
+                            ],
+                            "suggestions": [
+                                "solicito que",
+                                "minha necessidade nesta situação é",
+                                "proponho que"
+                            ],
+                            "cnvNote": "CNV: condicional moralista — expresse a necessidade diretamente sem condicionar ao caráter",
+                            "reason": "Condicional moralista implica que o não cumprimento revela mau caráter"
+                        }
+                    ]
+                },
+                "feeling_vs_interpretation": {
+                    "description": "Distingue sentimentos reais de interpretações disfarçadas de sentimento",
+                    "severity": "LOW",
+                    "cnvPillar": "Sentimento sem julgamento",
+                    "entries": [
+                        {
+                            "ruleId": "GN_FI_001",
+                            "stems": [
+                                "me sinto traíd",
+                                "me sinto abandon",
+                                "me sinto desrespeit"
+                            ],
+                            "original": [
+                                "me sinto traído",
+                                "me sinto abandonado",
+                                "me sinto desrespeitado"
+                            ],
+                            "suggestions": [
+                                "sinto tristeza quando",
+                                "sinto frustração quando",
+                                "sinto preocupação quando"
+                            ],
+                            "cnvNote": "CNV: 'me sinto traído' contém interpretação do outro; sentimento puro é 'sinto tristeza'",
+                            "reason": "Falso-sentimento embute acusação — use vocabulário emocional preciso (CNV: lista de sentimentos)"
+                        },
+                        {
+                            "ruleId": "GN_FI_002",
+                            "stems": [
+                                "me sinto ignor",
+                                "me sinto atacad",
+                                "me sinto manipul"
+                            ],
+                            "original": [
+                                "me sinto ignorado",
+                                "me sinto atacado",
+                                "me sinto manipulado"
+                            ],
+                            "suggestions": [
+                                "sinto angústia quando",
+                                "sinto insegurança quando",
+                                "sinto desconforto quando"
+                            ],
+                            "cnvNote": "CNV: sentimentos que terminam em '-ado/-ada' geralmente são interpretações disfarçadas de sentimento",
+                            "reason": "Interpretação embutida em sentimento acusa implicitamente o outro"
+                        }
+                    ]
+                },
+                "needs_language": {
+                    "description": "Expressão de necessidades — terceiro componente CNV",
+                    "severity": "LOW",
+                    "cnvPillar": "Necessidade sem exigência",
+                    "entries": [
+                        {
+                            "ruleId": "GN_NL_001",
+                            "stems": [
+                                "você não se preocup",
+                                "você não liga"
+                            ],
+                            "original": [
+                                "você não se preocupa comigo",
+                                "você não liga para isso",
+                                "ninguém se importa"
+                            ],
+                            "suggestions": [
+                                "tenho necessidade de",
+                                "para mim é importante que",
+                                "valorizo muito"
+                            ],
+                            "cnvNote": "CNV: reclamação sobre o outro → converta em declaração de necessidade própria",
+                            "reason": "Reclamação não comunica necessidade — expresse o que é importante para você"
+                        }
+                    ]
+                }
+            }
         }
+    },
+    "cnvVocabulary": {
+        "description": "Vocabulário emocional CNV para uso nas sugestões",
+        "feelingsWhenNeedsMet": [
+            "aliviado",
+            "animado",
+            "calmo",
+            "confiante",
+            "curioso",
+            "esperançoso",
+            "grato",
+            "inspirado",
+            "satisfeito",
+            "seguro",
+            "tranquilo",
+            "tocado",
+            "reconfortado",
+            "presente",
+            "pleno"
+        ],
+        "feelingsWhenNeedsNotMet": [
+            "angustiado",
+            "ansioso",
+            "confuso",
+            "desapontado",
+            "desconfortável",
+            "entristecido",
+            "frustrado",
+            "impaciente",
+            "inseguro",
+            "preocupado",
+            "sobrecarregado",
+            "triste",
+            "tenso",
+            "vulnerável"
+        ],
+        "universalNeeds": [
+            "autonomia",
+            "celebração",
+            "clareza",
+            "comunidade",
+            "compreensão",
+            "confiança",
+            "conexão",
+            "contribuição",
+            "criatividade",
+            "dignidade",
+            "estabilidade",
+            "honestidade",
+            "integridade",
+            "justiça",
+            "paz",
+            "pertencimento",
+            "proteção",
+            "respeito",
+            "segurança",
+            "significado"
+        ]
     }
 }

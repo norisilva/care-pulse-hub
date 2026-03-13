@@ -1,0 +1,104 @@
+{
+    "version": "1.0.0",
+    "language": "pt-BR",
+    "description": "Padrões gramaticais para detecção de construções problemáticas via POS tags (Universal Dependencies tagset)",
+    "tagsetReference": "https://universaldependencies.org/u/pos/",
+    "patterns": [
+        {
+            "ruleId": "ACCUSATORY_PATTERN_001",
+            "description": "Construção acusatória: sujeito + absolutismo + ação (ex: 'ela nunca leva')",
+            "posSequence": [
+                "PRON",
+                "ADV",
+                "VERB"
+            ],
+            "severity": "HIGH",
+            "suggestion": "Reformule descrevendo o fato observável sem atribuir frequência absoluta ao sujeito",
+            "examples": [
+                "ela nunca leva",
+                "ele sempre esquece",
+                "ela nunca faz"
+            ]
+        },
+        {
+            "ruleId": "INTENT_PATTERN_001",
+            "description": "Atribuição de intenção negativa — difícil de provar (ex: 'fez de propósito')",
+            "posSequence": [
+                "VERB",
+                "ADV"
+            ],
+            "severity": "HIGH",
+            "suggestion": "Descreva a ação observada sem atribuir intenção à pessoa",
+            "examples": [
+                "fez de propósito",
+                "agiu intencionalmente",
+                "fez deliberadamente"
+            ],
+            "requiredStems": [
+                "proposit",
+                "intencional",
+                "deliber"
+            ]
+        },
+        {
+            "ruleId": "CHARACTER_ADJ_001",
+            "description": "Adjetivo de caráter qualificando pessoa diretamente (ex: 'pai negligente')",
+            "posSequence": [
+                "NOUN",
+                "ADJ"
+            ],
+            "severity": "HIGH",
+            "suggestion": "Descreva o comportamento específico observado, não qualifique a pessoa",
+            "examples": [
+                "pai negligente",
+                "mãe irresponsável"
+            ],
+            "requiredStems": [
+                "negligen",
+                "irrespons",
+                "incompet",
+                "incapaz"
+            ]
+        },
+        {
+            "ruleId": "CHARACTER_ADJ_002",
+            "description": "Adjetivo de caráter antes de pessoa (ex: 'o irresponsável do pai')",
+            "posSequence": [
+                "ADJ",
+                "NOUN"
+            ],
+            "severity": "HIGH",
+            "suggestion": "Descreva o comportamento específico observado, não qualifique a pessoa",
+            "examples": [
+                "a irresponsável da mãe",
+                "o negligente pai"
+            ],
+            "requiredStems": [
+                "negligen",
+                "irrespons",
+                "incompet",
+                "incapaz"
+            ]
+        },
+        {
+            "ruleId": "THREAT_PATTERN_001",
+            "description": "Ameaça velada ou direta (ex: 'vai se arrepender')",
+            "posSequence": [
+                "AUX",
+                "PRON",
+                "VERB"
+            ],
+            "severity": "HIGH",
+            "suggestion": "Remova ameaças e foque nos fatos que deseja relatar",
+            "examples": [
+                "vai se arrepender",
+                "vai ter que responder"
+            ],
+            "requiredStems": [
+                "arrepend",
+                "respond",
+                "pag"
+            ]
+        }
+    ]
+}

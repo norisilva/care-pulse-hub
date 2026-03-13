@@ -39,6 +39,9 @@ desktop.ini
 *.pem
 application-local.properties
 
+# === Modelos NLP binários (não versionados — usar scripts/download-models) ===
+*.bin
+
 # === Autostart temp files ===
 CarePulseHub.vbs
 

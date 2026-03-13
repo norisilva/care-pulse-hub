@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +36,8 @@ public class DictionaryMatcherStep implements PipelineStep {
 
             int currentTokenSearchIndex = sentenceStart;
             String[] tokens = sentence.split("\\s+");
+            List<String> tokenStems = new ArrayList<>();
+            List<TokenInfo> tokenInfos = new ArrayList<>();
 
             for (String token : tokens) {
                 if (token.trim().isEmpty()) continue;
@@ -47,30 +51,79 @@ public class DictionaryMatcherStep implements PipelineStep {
                 }
                 currentTokenSearchIndex = startPos + token.length();
 
-                final int finalStartPos = startPos;
-                final String finalToken = token;
-
                 try {
                     String stem = dictionary.stemToken(clean);
-                    dictionary.findByStem(stem).ifPresent(entry -> {
+                    tokenStems.add(stem);
+                    tokenInfos.add(new TokenInfo(startPos, startPos + token.length(), token, stem));
+                } catch (IOException e) {
+                    // Ignora erro de stemming silenciosamente
+                }
+            }
+
+            // 1.1 Phrase Matching (Multistems)
+            boolean[] matchedTokens = new boolean[tokenInfos.size()];
+            for (Map.Entry<String, DictionaryEntry> phraseEntry : dictionary.getPhraseIndex().entrySet()) {
+                String[] phraseParts = phraseEntry.getKey().split("\\s+");
+                int phraseLen = phraseParts.length;
+
+                for (int i = 0; i <= tokenInfos.size() - phraseLen; i++) {
+                    boolean match = true;
+                    for (int j = 0; j < phraseLen; j++) {
+                        if (!phraseParts[j].equals(tokenInfos.get(i + j).stem)) {
+                            match = false;
+                            break;
+                        }
+                    }
+
+                    if (match) {
+                        int startPos = tokenInfos.get(i).startPos;
+                        int endPos = tokenInfos.get(i + phraseLen - 1).endPos;
+                        String matchedText = originalText.substring(startPos, endPos);
+                        
+                        DictionaryEntry entry = phraseEntry.getValue();
                         String primarySuggestion = entry.suggestions() != null && !entry.suggestions().isEmpty() 
                             ? entry.suggestions().get(0) 
                             : "[sugestão neutra indisponível]";
-                        
+
                         ctx.addSuggestion(new Suggestion(
-                            finalStartPos,
-                            finalStartPos + finalToken.length(),
-                            finalToken,
+                            startPos,
+                            endPos,
+                            matchedText,
                             primarySuggestion,
                             entry.reason(),
                             entry.severity(),
-                            "dictionary",
+                            "dictionary_phrase",
                             entry.ruleId()
                         ));
-                    });
-                } catch (IOException e) {
-                    // Ignora erro de stemming silenciosamente mas loga em trace se necessario
+
+                        for (int j = 0; j < phraseLen; j++) {
+                            matchedTokens[i + j] = true;
+                        }
+                    }
                 }
+            }
+
+            // 1.2 Single Stem Matching (skip tokens already matched in phrases)
+            for (int i = 0; i < tokenInfos.size(); i++) {
+                if (matchedTokens[i]) continue;
+                
+                TokenInfo info = tokenInfos.get(i);
+                dictionary.findByStem(info.stem).ifPresent(entry -> {
+                    String primarySuggestion = entry.suggestions() != null && !entry.suggestions().isEmpty() 
+                        ? entry.suggestions().get(0) 
+                        : "[sugestão neutra indisponível]";
+                    
+                    ctx.addSuggestion(new Suggestion(
+                        info.startPos,
+                        info.endPos,
+                        info.original,
+                        primarySuggestion,
+                        entry.reason(),
+                        entry.severity(),
+                        "dictionary",
+                        entry.ruleId()
+                    ));
+                });
             }
         }
 
@@ -100,4 +153,6 @@ public class DictionaryMatcherStep implements PipelineStep {
 
         ctx.markStepApplied("DictionaryMatcher");
     }
+
+    private record TokenInfo(int startPos, int endPos, String original, String stem) {}
 }

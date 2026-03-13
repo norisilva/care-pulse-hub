@@ -10,7 +10,7 @@ echo.
 
 set STARTUP_DIR=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
 set VBS_FILE=%STARTUP_DIR%\CarePulseHub.vbs
-set JAR_PATH=%~dp0backend\target\backend-0.0.1-SNAPSHOT.jar
+set JAR_PATH=%~dp0backend\target\backend-0.1.0-SNAPSHOT.jar
 
 :: Remove old version if exists
 if exist "%VBS_FILE%" del /f "%VBS_FILE%"
@@ -33,4 +33,5 @@ if exist "%VBS_FILE%" (
     echo Verifique suas permissoes de usuario.
 )
 echo.
+if "%1"=="/silent" ( exit /b 0 )
 pause

@@ -13,4 +13,5 @@ if exist "%VBS_FILE%" (
     echo O CarePulse Hub nao estava configurado para inicializacao automatica.
 )
 echo.
+if "%1"=="/silent" ( exit /b 0 )
 pause

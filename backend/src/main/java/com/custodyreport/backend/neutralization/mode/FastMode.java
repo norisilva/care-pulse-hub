@@ -29,12 +29,8 @@ public class FastMode implements NeutralizationMode {
     public NeutralizationResult analyze(NeutralizationRequest request) {
         long start = System.currentTimeMillis();
 
-        PipelineContext ctx = new PipelineContext(request.text(), request.context());
-
-        sentenceDetector.execute(ctx);
-        stemmer.execute(ctx);
-        dictionaryMatcher.execute(ctx);
-        fuzzyMatcher.execute(ctx);
+        PipelineContext ctx = buildContext(request);
+        executeSteps(ctx);
 
         return new NeutralizationResult(
             request.text(),
@@ -48,23 +44,42 @@ public class FastMode implements NeutralizationMode {
         );
     }
 
+    /**
+     * Cria o PipelineContext a partir da request.
+     * Exposto para reutilização pelo DeepMode.
+     */
+    public PipelineContext buildContext(NeutralizationRequest request) {
+        return new PipelineContext(request.text(), request.context());
+    }
+
+    /**
+     * Executa os 4 steps do FastMode na ordem correta.
+     * Exposto para reutilização pelo DeepMode.
+     */
+    public void executeSteps(PipelineContext ctx) {
+        sentenceDetector.execute(ctx);
+        stemmer.execute(ctx);
+        dictionaryMatcher.execute(ctx);
+        fuzzyMatcher.execute(ctx);
+    }
+
     private double calculateScore(List<Suggestion> suggestions) {
         if (suggestions.isEmpty()) return 0.0;
-        
-        double totalScore = 0;
-        for (Suggestion s : suggestions) {
-            totalScore += switch (s.severity()) {
-                case HIGH -> 1.0;
-                case MEDIUM -> 0.6;
-                case LOW -> 0.3;
-            };
-        }
-        
-        // Return average score per suggestion, capped at 1.0
-        return Math.min(1.0, totalScore / Math.max(1, suggestions.size()));
+
+        double totalWeight = suggestions.stream()
+            .mapToDouble(s -> switch (s.severity()) {
+                case CRITICAL -> 1.5;
+                case HIGH     -> 1.0;
+                case MEDIUM   -> 0.6;
+                case LOW      -> 0.3;
+            })
+            .sum();
+
+        // Escala: 5 achados HIGH = score 1.0; proporcional abaixo disso
+        return Math.min(1.0, totalWeight / 5.0);
     }
 
     private Map<String, Double> calculateScoreByCategory(List<Suggestion> suggestions) {
-        return new HashMap<>(); // To be implemented with detailed category scoring if needed
+        return new HashMap<>(); // A ser implementado com scoring detalhado se necessário
     }
 }

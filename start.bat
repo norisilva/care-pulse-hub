@@ -45,7 +45,7 @@ echo.
 
 :: 4. Iniciar o backend. 
 :: Usamos CMD /K para que se der erro o usuario consiga ler antes da janela fechar.
-start "CarePulse Motor" /min cmd /c "java -jar backend\target\backend-0.0.1-SNAPSHOT.jar || (echo. && echo [ERRO CRITICO] O motor parou inesperadamente! && pause)"
+start "CarePulse Motor" /min cmd /c "java -jar ""backend\target\backend-0.1.0-SNAPSHOT.jar"" || (echo. && echo [ERRO CRITICO] O motor parou inesperadamente! && pause)"
 
 echo [2/3] Aguardando o sistema aquecer (10 segundos)...
 timeout /t 10 /nobreak >nul

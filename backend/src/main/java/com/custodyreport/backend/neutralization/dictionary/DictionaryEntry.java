@@ -11,5 +11,6 @@ public record DictionaryEntry(
     String reason,
     String pattern,
     String type,
-    Severity severity
+    Severity severity,
+    String cnvNote
 ) {}

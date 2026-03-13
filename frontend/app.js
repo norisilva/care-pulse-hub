@@ -13,6 +13,7 @@ async function initializeApp() {
         await loadGroups();
         await loadLastReport();
         await loadScenarios();
+        await checkNlpStatus();
     } else {
         // If server was offline, retry in 3 seconds
         setTimeout(initializeApp, 3000);
@@ -31,6 +32,23 @@ const encryptTestBtn = document.getElementById('encryptTestBtn');
 const scenarioSelect = document.getElementById('reportScenario');
 
 const createGroupForm = document.getElementById('createGroupForm');
+
+async function checkNlpStatus() {
+    try {
+        const res = await fetch(`${API_BASE}/neutralization/capabilities`);
+        if (res.ok) {
+            const caps = await res.json();
+            const currentStatus = document.getElementById('statusText').innerText;
+            if (caps.nlpModelAvailable) {
+                document.getElementById('statusText').innerText = currentStatus + ` | Motor NLP Ativo (Deep Mode ✓)`;
+            } else {
+                document.getElementById('statusText').innerText = currentStatus + ` | NLP Indisponível`;
+            }
+        }
+    } catch (e) {
+        console.warn("Failed to check capabilities");
+    }
+}
 
 // Initial check to see if first-time setup is needed
 async function checkSetup() {
@@ -234,7 +252,7 @@ if (resetDbBtn) {
 
         const second = confirm(
             '🔴 ÚLTIMA CONFIRMAÇÃO\n\n' +
-            'Tem ABSOLUTA CERTEZA?\n\nTodos os dados serão perdidos para sempre.'
+            'Tem ABSOLUTA CERTEZA?\n\nTodos os dados serão perdidos de forma definitiva.'
         );
         if (!second) return;
 
@@ -282,11 +300,12 @@ let timeRemaining = 180; // 3 minutes
 
 const reflectionMessages = [
     "Respire fundo. A comunicação clara reduz conflitos duradouros.",
-    "Lembre-se: O que está escrito fica documentado para sempre.",
+    "Lembre-se: O que está escrito fica documentado de forma persistente.",
     "Vale a pena gerar atrito por conta de uma palavra?",
     "Você revisou as sugestões da IA? Elas ajudam a manter a objetividade.",
     "Um relatório neutro foca nos fatos, não em atacar as pessoas.",
-    "Pense no longo prazo: a paz custa menos que o conflito."
+    "Pense no longo prazo: a paz custa menos que o conflito.",
+    "Evite absolutismos: eles dificultam a percepção objetiva dos fatos e são facilmente refutados."
 ];
 let reflectionInterval = null;
 
@@ -496,12 +515,13 @@ neutralizeBtn.addEventListener('click', async () => {
 });
 
 // AI Neutralization Logic
-let analyzeTimeout;
+const analyzeTimeouts = new Map();
+
 function debounceAnalyze(fieldId, text) {
-    clearTimeout(analyzeTimeout);
-    analyzeTimeout = setTimeout(() => {
+    clearTimeout(analyzeTimeouts.get(fieldId));
+    analyzeTimeouts.set(fieldId, setTimeout(() => {
         analyzeText(fieldId, text, 'fast');
-    }, 800);
+    }, 800));
 }
 
 async function analyzeText(fieldId, text, mode) {
@@ -511,9 +531,14 @@ async function analyzeText(fieldId, text, mode) {
     }
 
     try {
+        const roleToContext = {
+            "3": "elderly_care"
+        };
+        const ctx = roleToContext[currentRole] || "custody";
+
         const payload = {
             text: text,
-            context: 'custody', // We map userRole to context on backend eventually, or send generic here
+            context: ctx,
             language: 'pt-BR'
         };
 
@@ -525,6 +550,15 @@ async function analyzeText(fieldId, text, mode) {
 
         if (res.ok) {
             const data = await res.json();
+
+            // CR-01 / CR-02 Integration: Auto-apply suggested replacement if in Deep Mode
+            if (mode === 'deep' && data.neutralizedText && data.neutralizedText !== text) {
+                document.getElementById(fieldId).value = data.neutralizedText;
+                // Clear old suggestions, optionally trigger a new fast analysis
+                renderSuggestions(fieldId, []);
+                return;
+            }
+
             renderSuggestions(fieldId, data.suggestions);
         }
     } catch (e) {
@@ -542,15 +576,27 @@ function renderSuggestions(fieldId, suggestions) {
         const div = document.createElement('div');
         div.className = `suggestion-item severity-${s.severity}`;
 
-        div.innerHTML = `
-            <div class="suggestion-header">
-                <div>
-                    Substitua <span class="suggestion-original">"${s.originalSpan}"</span>
-                    por <span class="suggestion-replacement">"${s.suggestedReplacement}"</span>
-                </div>
-            </div>
-            <div class="suggestion-reason">${s.reason}</div>
-        `;
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'suggestion-header';
+
+        const replaceTextDiv = document.createElement('div');
+        replaceTextDiv.innerHTML = `Substitua <span class="suggestion-original">"${s.originalSpan}"</span> por <span class="suggestion-replacement">"${s.suggestedReplacement}"</span>`;
+        headerDiv.appendChild(replaceTextDiv);
+        div.appendChild(headerDiv);
+
+        const reasonDiv = document.createElement('div');
+        reasonDiv.className = 'suggestion-reason';
+        reasonDiv.textContent = s.reason; // CR-F01 XSS fix
+        div.appendChild(reasonDiv);
+
+        if (s.cnvNote) {
+            const noteDiv = document.createElement('div');
+            noteDiv.className = 'suggestion-cnv-note';
+            noteDiv.style = "color: #6366f1; font-weight: 600; font-size: 0.75rem; margin-top: 0.25rem;";
+            noteDiv.textContent = `📌 ${s.cnvNote}`; // CR-F01 XSS fix
+            div.appendChild(noteDiv);
+        }
+
         container.appendChild(div);
     });
 }
@@ -564,7 +610,7 @@ function renderSuggestions(fieldId, suggestions) {
 
     el.addEventListener('blur', (e) => {
         // Run it immediately on blur
-        clearTimeout(analyzeTimeout);
+        clearTimeout(analyzeTimeouts.get(f));
         analyzeText(f, e.target.value, 'fast');
     });
 });

@@ -26,10 +26,14 @@ public class SentimentDictionary {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final Analyzer luceneAnalyzer = new BrazilianAnalyzer();
 
-    private final Map<String, DictionaryEntry> stemIndex = new HashMap<>();
+    private final Map<String, DictionaryEntry> stemIndex = new HashMap<>(); // For single-word stems
+    @Getter
+    private final Map<String, DictionaryEntry> phraseIndex = new HashMap<>(); // For multi-word stems
     private final Map<java.util.regex.Pattern, DictionaryEntry> regexIndex = new LinkedHashMap<>();
     @Getter
     private final Map<String, DictionaryEntry> allOriginals = new HashMap<>();
+    @Getter
+    private CnvVocabulary cnvVocabulary;
 
     @PostConstruct
     public void load() {
@@ -57,7 +61,18 @@ public class SentimentDictionary {
                     }
                 }
             }
-            log.info("SentimentDictionary loaded successfully. Total entries: {}", loadedEntries);
+            
+            // Parse CNV Vocabulary (CR-06)
+            JsonNode vocabNode = root.path("cnvVocabulary");
+            if (!vocabNode.isMissingNode() && !vocabNode.isNull()) {
+                this.cnvVocabulary = new CnvVocabulary(
+                    parseList(vocabNode.path("feelingsWhenNeedsMet")),
+                    parseList(vocabNode.path("feelingsWhenNeedsNotMet")),
+                    parseList(vocabNode.path("universalNeeds"))
+                );
+            }
+
+            log.info("SentimentDictionary loaded successfully. Total entries: {}. CNV Vocabulary loaded.", loadedEntries);
         } catch (Exception e) {
             log.error("Failed to load sentiment dictionary", e);
             throw new IllegalStateException("Falha crítica: Dicionário de neutralização não encontrado ou inválido.", e);
@@ -77,7 +92,8 @@ public class SentimentDictionary {
             node.path("reason").asText(),
             node.path("pattern").asText(null),
             node.path("type").asText(null),
-            defaultSeverity
+            defaultSeverity,
+            node.path("cnvNote").asText(null)
         );
     }
 
@@ -97,7 +113,12 @@ public class SentimentDictionary {
         } else {
             if (entry.stems() != null) {
                 for (String stem : entry.stems()) {
-                    stemIndex.put(stem, entry);
+                    // CR-01: Separate single-word stems from multi-word stems
+                    if (stem.trim().contains(" ")) {
+                        phraseIndex.put(stem.trim(), entry);
+                    } else {
+                        stemIndex.put(stem.trim(), entry);
+                    }
                 }
             }
             if (entry.original() != null) {

@@ -271,6 +271,14 @@ select option {
     background: rgba(239, 68, 68, 0.1);
 }
 
+.suggestion-item.severity-CRITICAL {
+    border-left-color: #b91c1c;
+    /* Darker red */
+    background: rgba(185, 28, 28, 0.15);
+    border-width: 6px;
+    /* High focus */
+}
+
 .suggestion-item.severity-MEDIUM {
     border-left-color: #f59e0b;
     background: rgba(245, 158, 11, 0.1);
