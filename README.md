@@ -1,6 +1,6 @@
-# CarePulse Hub
+# CarePulse Hub — Powered by AI Engine
 
-[Português](#português) | [English](#english) | [📸 Demo Showcase](DEMO.md)
+[Português](#português) | [English](#english) | [📋 Como Rodar Local](RUNNING_LOCALLY.md)
 
 ---
 
@@ -8,39 +8,71 @@
 ## 🇧🇷 Português
 
 > **Engenharia de Software e IA ajudando pessoas.**  
-> Mantendo relações humanas em ordem. Minimizando conflitos. Um relatório de cada vez.
+> Um motor de IA agnóstico. Um aplicativo de cuidado. Muito mais por vir.
+
+### Visão Geral da Arquitetura
+
+Este repositório implementa um **Motor de IA desacoplado** — um sistema backend independente que suporta múltiplos aplicativos clientes. O **CarePulse Hub** é o primeiro.
+
+```
+email-auto-report/
+├── engine/
+│   ├── core-java/          ← Motor Central: Spring Boot + IA + gRPC (Java 21)
+│   ├── plugins-python/     ← Plugins de IA: Servidor gRPC (Python 3.13)
+│   └── admin-dashboard/    ← Dashboard de Controle do Motor (em desenvolvimento)
+└── apps/
+    └── carepulse-frontend/ ← Aplicativo Cliente #1: CarePulse Hub
+```
+
+O motor expõe uma **API REST única** e pode ser consumido por qualquer interface: web, mobile, CLI ou outro serviço.
+
+---
 
 ### O que é o CarePulse?
-Muitas vezes enfrentamos situações onde a forma como nos comunicamos importa tanto quanto o que dizemos. O **CarePulse Hub** é uma ferramenta simples, de execução local, que ajuda pessoas em responsabilidades de cuidado a enviar relatórios claros, neutros e organizados — sem carga emocional, ambiguidade ou atrito.
 
-**100% Gratuito, sem propagandas e sempre será mantido assim.**
+Uma ferramenta que ajuda pessoas em responsabilidades de cuidado (pais, tutores, cuidadores) a enviar relatórios **claros, neutros e organizados** — sem carga emocional, ambiguidade ou atrito.
 
-### Para quem é isso?
-Qualquer pessoa que precise reportar algo regularmente: Pais em guarda compartilhada, cuidadores de idosos, técnicos de enfermagem, pet sitters, mecânicos, etc.
+**100% Gratuito, offline-first e sempre será assim.**
 
-### 🚀 Novidades (v0.1.0)
-- **Camada de Neutralização IA (Fase 2 — Deep Mode)**: Agora com análise estrutural (NLP) para detectar construções acusatórias e não apenas palavras.
-- **Dicionário CNV v2.0**: Baseado inteiramente na **Comunicação Não-Violenta (Marshall Rosenberg)**, com foco em Observação, Sentimento, Necessidade e Pedido.
-- **Bloqueio de Backend**: A API agora rejeita automaticamente textos que fujam do padrão neutro sem confirmação explícita.
-- **Controle de Impulso**: Novo sistema de "cool-off" que aguarda 3 minutos (canceláveis) antes do envio real, caso o texto contenha violações.
-- **Suporte OpenNLP**: Download automático de modelos estruturais para análise gramatical profunda.
+---
 
-### Como Começar
-**Windows**:
-1. Certifique-se de ter o **Java 21** instalado.
-2. Dê um duplo-clique no arquivo `start.bat`. Ele fará as checagens, iniciará o motor e abrirá o navegador.
+### 🚀 Capacidades Implementadas do Motor
 
-**Linux / Mac**:
-1. Instale o Java 21 (ex: `sudo apt install openjdk-21-jre`).
-2. Abra o terminal na pasta do projeto e rode: `bash start.sh`.
+| Fase | Capacidade | Status |
+|------|-----------|--------|
+| 0 | Isolamento e refatoração do motor (arhcitetura agnóstica) | ✅ |
+| 1 | Estratégias: Decision Tables + Algoritmos Java | ✅ |
+| 2 | Distribuição parametrizável por data e percentual | ✅ |
+| 3 | Plugins Python via gRPC (sentiment analysis) | ✅ |
+| 4 | Treinamento e Feedback Loop contínuo | ✅ |
+| 5 | Multi-motor: N engines independentes, estratégias compartilhadas | ✅ |
+| 5.1 | Persistência definitiva (anti-amnésia sistêmica via JPA) | ✅ |
+| 6 | Desacoplamento de diretórios (engine vs apps) | ✅ |
+| 6.1 | **Admin Dashboard do Motor** | 🔜 Em desenvolvimento |
 
-*(Importante: O sistema roda na porta 8765 por padrão para evitar conflitos com outros apps).*
+---
 
-### Inicialização Automática (Opção Recomendada)
-Para garantir que os **relatórios agendados** funcionem sempre, você pode configurar o sistema para rodar junto com o Windows/Linux:
-- **Windows**: Dê um duplo-clique no arquivo `enable-autostart.bat`.
-- **Linux**: Execute o comando `bash enable-autostart.sh`.
-Isso fará com que o motor do sistema rode de forma invisível toda vez que você ligar o computador.
+### Como Rodar
+
+Veja o guia completo: **[RUNNING_LOCALLY.md](RUNNING_LOCALLY.md)**
+
+Resumo rápido:
+```powershell
+# 1. Subir o plugin Python (gRPC, porta 50051)
+cd engine/plugins-python
+uv venv && .venv\Scripts\activate
+uv pip install -r requirements.txt
+python -m src.server
+
+# 2. Subir o motor Java (porta 8765)
+cd engine/core-java
+mvn spring-boot:run
+
+# 3. Acessar
+# App CarePulse: http://localhost:8765/apps/carepulse-frontend/index.html
+# Admin Motor:  http://localhost:8765/index.html
+# H2 Console:  http://localhost:8765/h2-console
+```
 
 ---
 
@@ -48,46 +80,50 @@ Isso fará com que o motor do sistema rode de forma invisível toda vez que voc�
 ## 🇺🇸 English
 
 > **Software engineering and AI working together to help people.**  
-> Keeping human relationships in order. Minimizing conflict. One report at a time.
+> A standalone AI engine. One care app. Many more to come.
 
-### What is CarePulse?
-CarePulse Hub is a simple, local-first tool that helps people in care responsibilities send clear, neutral, and organized reports — without emotional loading, ambiguity, or friction. It aims to minimize noise and distrust in daily human interactions.
+### Architecture Overview
 
-**100% free, no ads, and it will always stay this way.**
+This repository implements a **decoupled AI Engine** — an independent backend system designed to support multiple client applications. **CarePulse Hub** is the first client.
 
-### Who is this for?
-Anyone who needs to regularly report something: Parents in custody arrangements, elderly caretakers, private tutors, pet sitters, mechanics, contractors, etc.
-
-### 🚀 What's New (v0.1.0)
-- **AI Neutralization Layer (Phase 2 — Deep Mode)**: Now with structural NLP analysis to detect accusatory grammar patterns, not just keywords.
-- **NVC Dictionary v2.0**: Based on **Marshall Rosenberg's Non-Violent Communication**, focusing on Observation, Feeling, Need, and Request.
-- **Backend Enforcement**: API now rejects non-neutral text unless explicitly confirmed by the user.
-- **Impulse Control**: A 3-minute cancelable delay system for reports containing AI violations.
-- **OpenNLP Integration**: Automatic model downloads for deep grammatical analysis.
-### Getting Started
-**Windows**:
-1. Ensure you have **Java 21** installed.
-2. Double-click the `start.bat` file. It will check requirements, start the engine, and open your browser automatically.
-
-**Linux / Mac**:
-1. Install Java 21 (e.g., `sudo apt install openjdk-21-jre`).
-2. Open the terminal in the project folder and run: `bash start.sh`.
-
-*(Note: The backend runs on port 8765 by default to prevent conflicts with other common software).*
-
-### Automatic OS Startup (Recommended)
-To ensure **scheduled reports** are always sent, you should configure the system to start with your OS:
-- **Windows**: Double-click the `enable-autostart.bat` file.
-- **Linux**: Run `bash enable-autostart.sh` in the terminal.
-This will load the engine silently in the background every time you turn on your computer.
+The engine exposes a single REST API consumed by any interface: web, mobile, CLI, or another service.
 
 ---
 
-## 🛠️ Tech Stack / Tecnologia
-- **Backend**: Spring Boot 4 (Java 21)
-- **Database**: H2 (File-persisted)
-- **Security**: Jasypt (Encrypted credentials)
-- **Frontend**: Vanilla JS / HTML5 / CSS3
+### What is CarePulse?
+
+CarePulse Hub helps people in care responsibilities (parents, guardians, caretakers) send **clear, neutral and organized reports** — without emotional loading, ambiguity, or friction.
+
+**100% free, offline-first, and it will always stay this way.**
+
+---
+
+### Engine Capabilities
+
+| Phase | Capability | Status |
+|-------|-----------|--------|
+| 0 | Engine isolation & refactor (agnostic architecture) | ✅ |
+| 1 | Strategies: Decision Tables + Java Algorithms | ✅ |
+| 2 | Time-based distribution with percentages | ✅ |
+| 3 | Python plugins via gRPC (sentiment analysis) | ✅ |
+| 4 | Training & Feedback Loop | ✅ |
+| 5 | Multi-engine: N independent engines, shared strategies | ✅ |
+| 5.1 | Persistent state (JPA anti-amnesia) | ✅ |
+| 6 | Directory decoupling (engine vs apps) | ✅ |
+| 6.1 | **Engine Admin Dashboard** | 🔜 In development |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Engine Core | Spring Boot 4, Java 21 |
+| AI Plugins | Python 3.13, gRPC, grpcio |
+| NLP (PT-BR) | Apache OpenNLP, Lucene, CNV dictionary |
+| Persistence | H2 (JPA/Hibernate) |
+| Security | Jasypt (encrypted credentials) |
+| Client App | Vanilla JS / HTML5 / CSS3 |
 
 ## 📄 License
 MIT License. See [LICENSE](LICENSE) for details.

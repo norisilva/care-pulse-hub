@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engine Admin Dashboard | CarePulse Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#paint0_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="url(#paint1_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="url(#paint2_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="paint0_linear" x1="2" y1="7" x2="22" y2="7" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#8B5CF6"/>
+                                <stop offset="1" stop-color="#3B82F6"/>
+                            </linearGradient>
+                            <linearGradient id="paint1_linear" x1="2" y1="19.5" x2="22" y2="19.5" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#8B5CF6"/>
+                                <stop offset="1" stop-color="#3B82F6"/>
+                            </linearGradient>
+                            <linearGradient id="paint2_linear" x1="2" y1="14.5" x2="22" y2="14.5" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#8B5CF6"/>
+                                <stop offset="1" stop-color="#3B82F6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span>Engine Core</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-target="dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                    Overview
+                </a>
+                <a href="#" class="nav-item" data-target="engines">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    Engines
+                </a>
+                <a href="#" class="nav-item" data-target="strategies">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Strategies
+                </a>
+                <a href="#" class="nav-item" data-target="simulation">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M8 15h8"/></svg>
+                    Simulator
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h2>Dashboard Overview</h2>
+                <div class="user-profile">
+                    <div class="status-indicator online"></div>
+                    System Admin
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- Dashboard Overview View -->
+                <div id="view-dashboard" class="view active">
+                    <div class="stats-grid">
+                        <div class="stat-card glass">
+                            <div class="stat-icon purple-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Active Engines</span>
+                                <h3 class="stat-value" id="stat-engines-count">-</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass">
+                            <div class="stat-icon blue-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Strategies</span>
+                                <h3 class="stat-value" id="stat-strategies-count">-</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card glass">
+                            <div class="stat-icon green-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">System Health</span>
+                                <h3 class="stat-value">Healthy</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-panels">
+                        <div class="panel glass full-width">
+                            <div class="panel-header">
+                                <h3>Registered Engines</h3>
+                                <button class="btn btn-primary" id="btn-new-engine">+ New Engine</button>
+                            </div>
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Attached Strategies</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="engines-table-body">
+                                        <!-- Populated via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation View -->
+                <div id="view-simulation" class="view">
+                    <div class="panel glass">
+                        <div class="panel-header">
+                            <h3>Engine Simulator</h3>
+                            <p class="subtitle">Test inputs directly against any registered engine and its strategies.</p>
+                        </div>
+                        
+                        <div class="simulation-layout">
+                            <div class="sim-input-area">
+                                <div class="form-group">
+                                    <label>Select Target Engine</label>
+                                    <select id="sim-engine-select" class="input-control">
+                                        <option value="">Loading engines...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Input Text (JSON payload wrapper automatically added)</label>
+                                    <textarea id="sim-input-text" class="input-control" rows="5" placeholder="Ele frequentemente esquece as coisas e grita comigo."></textarea>
+                                </div>
+                                <button id="btn-simulate" class="btn btn-primary btn-block">
+                                    Run Engine
+                                </button>
+                            </div>
+                            
+                            <div class="sim-output-area">
+                                <div class="output-header">
+                                    <h4>Engine Result</h4>
+                                    <span class="badge" id="sim-time">- ms</span>
+                                </div>
+                                <div class="output-content glass-dark" id="sim-output-content">
+                                    <p class="placeholder-text">Run a simulation to see results here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modal-new-engine">
+        <div class="modal glass">
+            <div class="modal-header">
+                <h3>Create New Engine</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Engine ID (e.g., carepulse, fraud-detect)</label>
+                    <input type="text" id="engine-form-id" class="input-control" placeholder="my-custom-engine">
+                </div>
+                <div class="form-group">
+                    <label>Display Name</label>
+                    <input type="text" id="engine-form-name" class="input-control" placeholder="My Custom Engine">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-btn">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-engine">Create Engine</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
