@@ -1,5 +1,10 @@
 # === Build Output ===
-backend/target/
+engine/core-java/target/
+engine/plugins-python/.venv/
+engine/plugins-python/.uv/
+engine/plugins-python/__pycache__/
+engine/plugins-python/src/**/__pycache__/
+engine/plugins-python/proto/*_pb2*.py
 installer/jre/
 *.class
 *.jar
@@ -8,14 +13,14 @@ installer/jre/
 *.zip
 
 # === H2 Database (local data stays local) ===
-backend/data/
+engine/core-java/data/
 *.db
 *.mv.db
 *.trace.db
 
 # === Logs ===
 *.log
-backend_log.txt
+engine_log.txt
 logs/
 
 # === IDE ===
