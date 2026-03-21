@@ -1,5 +1,6 @@
 # === Build Output ===
 backend/target/
+installer/jre/
 *.class
 *.jar
 *.war

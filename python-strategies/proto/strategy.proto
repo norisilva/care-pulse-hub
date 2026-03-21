@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+// Generate Java code into this package
+option java_multiple_files = true;
+option java_package = "com.custodyreport.backend.engine.grpc";
+option java_outer_classname = "StrategyProto";
+
+package engine;
+
+service PythonStrategy {
+    rpc Execute (StrategyRequest) returns (StrategyResponse);
+    rpc Train (TrainRequest) returns (TrainResponse);
+    rpc GetMetadata (Empty) returns (StrategyMetadataResponse);
+}
+
+message StrategyRequest {
+    string strategy_id = 1;
+    string input_json = 2;
+    map<string, string> params = 3;
+}
+
+message StrategyResponse {
+    string output_json = 1;
+    double confidence = 2;
+    string execution_time_ms = 3;
+}
+
+message TrainRequest {
+    string strategy_id = 1;
+    string training_data_json = 2;
+}
+
+message TrainResponse {
+    string status = 1;
+    double new_accuracy = 2;
+}
+
+message Empty {}
+
+message StrategyMetadataResponse {
+    string version = 1;
+    string description = 2;
+}

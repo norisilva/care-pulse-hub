@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarePulse Hub - AI Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <i class="fa-solid fa-brain brand-icon"></i>
+                <h2>CarePulse Engine</h2>
+            </div>
+            <nav>
+                <a href="#" class="nav-item active" data-target="dashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                <a href="#" class="nav-item" data-target="laboratory"><i class="fa-solid fa-flask"></i> Strategy Lab</a>
+                <a href="#" class="nav-item" data-target="training"><i class="fa-solid fa-dumbbell"></i> Training Loop</a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>Status: <span class="status-indicator online"></span> Online</p>
+                <p class="mt-2 text-xs opacity-75">v2.0 Advanced AI Core</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h1>AI Orchestrator</h1>
+                <div class="engine-selector">
+                    <label for="engineSelect">Active Engine:</label>
+                    <select id="engineSelect" class="glass-input">
+                        <!-- Loaded dynamically -->
+                    </select>
+                </div>
+            </header>
+
+            <!-- Views -->
+            <div id="dashboard" class="view-section active">
+                <div class="metrics-grid">
+                    <div class="metric-card glass-panel">
+                        <i class="fa-solid fa-microchip metric-icon"></i>
+                        <div class="metric-data">
+                            <h3>Active Strategies</h3>
+                            <p class="metric-value" id="stats-strategies-count">0</p>
+                        </div>
+                    </div>
+                    <div class="metric-card glass-panel">
+                        <i class="fa-solid fa-bolt metric-icon"></i>
+                        <div class="metric-data">
+                            <h3>Avg Latency</h3>
+                            <p class="metric-value" id="stats-avg-latency">—</p>
+                        </div>
+                    </div>
+                    <div class="metric-card glass-panel">
+                        <i class="fa-solid fa-server metric-icon"></i>
+                        <div class="metric-data">
+                            <h3>Engines Live</h3>
+                            <p class="metric-value" id="stats-engines-count">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel glass-panel mt-6">
+                    <h2>Available Strategies</h2>
+                    <div class="strategies-list" id="strategies-list">
+                        <p class="loading-text">Loading engine capabilities...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="laboratory" class="view-section hidden">
+                <div class="panel glass-panel">
+                    <h2>Live Payload Test</h2>
+                    <p class="subtitle">Submit a payload to be processed dynamically by the selected agnostic Engine.</p>
+                    
+                    <div class="form-group mt-4">
+                        <label>JSON Payload</label>
+                        <textarea id="lab-payload" class="glass-input code-input">
+{
+  "text": "Ele frequentemente esquece de trazer o casaco da criança."
+}
+                        </textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button id="btn-process" class="btn primary-btn"><i class="fa-solid fa-cogs"></i> Execute Engine Flow</button>
+                    </div>
+
+                    <div class="result-box mt-4 hidden" id="lab-result-box">
+                        <h3>Execution Result</h3>
+                        <p class="exec-time">Completed in <span id="exec-time-ms">0</span>ms</p>
+                        <pre id="lab-result-output" class="code-output glass-panel"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div id="training" class="view-section hidden">
+                <div class="panel glass-panel">
+                    <h2>Feedback Loop & Training</h2>
+                    <p class="subtitle">Provide human feedback to retrain underlying Machine Learning and Decision Table models.</p>
+                    <div class="training-placeholder">
+                        <i class="fa-solid fa-arrow-rotate-right fa-spin"></i>
+                        <p>Awaiting feedback data from Engine metrics...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>
